@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import BackIcn from '../../Icons/BackIcn'
-import { isWpPluginCheckType } from '../../Utils/connectionAuth'
+import { getConnectionAppSlug, isWpPluginCheckType } from '../../Utils/connectionAuth'
 import { verifyPluginActivation, listConnections } from '../../Utils/connectionApi'
 import { __ } from '../../Utils/i18nwrap'
 import LoaderSm from '../Loaders/LoaderSm'
@@ -60,7 +60,7 @@ export default function Authorization({
     [config]
   )
 
-  const appSlug = config?.app_slug || config?.type
+  const appSlug = getConnectionAppSlug(config)
   const isWpPluginCheck = isWpPluginCheckType(authDetails?.authType)
   const resolvedTutorialLinkKey = tutorialLinkKey || tutorialTitle
   const tutorialLinksMap = useMemo(
@@ -269,9 +269,7 @@ export default function Authorization({
             />
           )}
 
-          {isInfo && !config?.connection_id && (
-            <ConnectionNotice onOpenSettings={connectionSwitch?.onNext} />
-          )}
+          {isInfo && !config?.connection_id && <ConnectionNotice />}
         </>
       )}
 

@@ -8,7 +8,7 @@ import ExternalLinkIcn from '../Icons/ExternalLinkIcn'
 import bitsFetch from '../Utils/bitsFetch'
 import { __, sprintf } from '../Utils/i18nwrap'
 
-const releaseDate = '26th October 2026'
+const releaseDate = '16th November 2026'
 
 // Example for items:
 // items: [
@@ -29,7 +29,18 @@ const changeLog = [
     label: __('New Triggers', 'bit-integrations'),
     headClass: 'new-trigger',
     itemClass: 'integration-list',
-    items: []
+    items: [
+      {
+        label: 'Bit Connect',
+        desc: '12 new events added.',
+        isPro: false
+      },
+      {
+        label: 'PaymentForm.io',
+        desc: 'New webhook trigger added.',
+        isPro: false
+      }
+    ]
   },
   {
     label: __('New Actions', 'bit-integrations'),
@@ -43,9 +54,14 @@ const changeLog = [
     itemClass: 'feature-list',
     items: [
       {
-        label: 'Systeme.io',
-        desc: 'New Update Contact and Update Tags utilities. When a contact with the same email already exists, its fields are updated and the selected tag is added to it.',
-        isPro: true
+        label: 'Webhook',
+        desc: 'Fetched webhook data now shows in groups, with a sample value under every field. Field names show where the value comes from, such as "Submission › Orders #1 › Name".',
+        isPro: false
+      },
+      {
+        label: 'Elementor',
+        desc: "The Form ID set in the form's Additional Options can now be mapped as a field.",
+        isPro: false
       }
     ]
   },
@@ -61,23 +77,13 @@ const changeLog = [
     itemClass: 'fixes-list',
     items: [
       {
-        label: 'Systeme.io',
-        desc: 'Some failed requests were still logged as successful. Success is now decided by the response status.',
+        label: 'Bit Connect',
+        desc: 'Post Published, Post Status or Stage Changed and Post Voted stopped running after the Bit Connect 1.1.0 update. They work again.',
         isPro: false
       },
       {
-        label: 'Systeme.io',
-        desc: 'Adding a tag now gets its own log entry, so a failed tag no longer hides the result of the contact.',
-        isPro: false
-      },
-      {
-        label: 'Edit Flow',
-        desc: 'Form fields were missing from the field map when you opened a saved flow. They now load with the flow.',
-        isPro: false
-      },
-      {
-        label: 'WP Post Creation',
-        desc: 'The settings screen could fail with "map is not a function" when the author list did not load. Administrators can now always load the author list, and the screen opens even if the list fails to load.',
+        label: 'New integration',
+        desc: 'The setup screen for Microsoft Excel, WP Activity Log, Follow Up Boss and Bit Connect showed "Five Star Restaurant Reservations" as its title. Each one now shows its own name.',
         isPro: false
       }
     ]
@@ -99,7 +105,7 @@ const changeLog = [
 export default function ChangelogToggle() {
   const [config, setConfig] = useRecoilState($appConfigState)
   const [show, setShow] = useState(config.changelogVersion !== config.version)
-  const [showAnalyticsOptin, setShowAnalyticsOptin] = useState(null)
+  const [telemetry, setTelemetry] = useState(null)
   const [loading, setLoading] = useState('')
   const [step, setStep] = useState(2)
 
@@ -117,8 +123,15 @@ export default function ChangelogToggle() {
     }
   }
 
+  const askConsent = Boolean(telemetry?.canManage && !telemetry.allowed && !telemetry.decided)
+
   const handleSubmit = () => {
-    bitsFetch({ isChecked: true }, 'analytics/optIn')
+    bitsFetch({ allow: true, source: 'changelog' }, 'telemetry/consent')
+    closeModal()
+  }
+
+  const handleSkip = () => {
+    bitsFetch({ allow: false }, 'telemetry/consent')
     closeModal()
   }
 
@@ -130,8 +143,8 @@ export default function ChangelogToggle() {
   useEffect(() => {
     if (show) {
       setLoading(true)
-      bitsFetch({}, 'analytics/check', '', 'GET').then(res => {
-        if (res?.success) setShowAnalyticsOptin(res.data)
+      bitsFetch({}, 'telemetry/status', '', 'GET').then(res => {
+        if (res?.success) setTelemetry(res.data)
         setLoading(false)
       })
     }
@@ -154,7 +167,7 @@ export default function ChangelogToggle() {
         sm={step !== 1}
         show={show}
         setModal={closeModal}
-        closeIcon={(showAnalyticsOptin || showAnalyticsOptin === null) && step === 2}
+        closeIcon={!askConsent && step === 2}
         style={{
           height: 'auto',
           width: '550px'
@@ -189,9 +202,7 @@ export default function ChangelogToggle() {
                   {__('Updated at:', 'bit-integrations')} <b>{releaseDate}</b>
                 </small>
               </div>
-              <div
-                className="changelog-content"
-                style={showAnalyticsOptin !== false ? { maxHeight: '60vh' } : undefined}>
+              <div className="changelog-content" style={!askConsent ? { maxHeight: '60vh' } : undefined}>
                 {changeLog.map((log, index) => (
                   <Fragment key={index}>
                     {log.items.length > 0 && (
@@ -241,7 +252,7 @@ export default function ChangelogToggle() {
                   />
                 </div>
               ) : (
-                showAnalyticsOptin === false && (
+                askConsent && (
                   <div>
                     <div className="btcd-hr mt-2"></div>
                     <div className="flx flx-col flx-center">
@@ -251,15 +262,25 @@ export default function ChangelogToggle() {
                     </div>
                     <div className="m-2 txt-sm">
                       {__(
-                        'Accept and continue to share usage data to help us improve the plugin, the plugin will still function if you skip.',
+                        'Accept and continue to send your site details, admin email and usage data to Bit Apps once a week, to help us improve the plugin. The plugin will still function if you skip.',
                         'bit-integrations'
                       )}
                       <br />
                       <a
                         className="app-link-active"
-                        target="blank"
+                        target="_blank"
+                        rel="noopener noreferrer"
                         href="https://bitapps.pro/terms-of-service/">
                         {__('Terms and conditions', 'bit-integrations')}&nbsp;
+                        <ExternalLinkIcn size="14" />
+                      </a>
+                      &nbsp;&nbsp;
+                      <a
+                        className="app-link-active"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        href="https://bitapps.pro/privacy-policy/">
+                        {__('Privacy Policy', 'bit-integrations')}&nbsp;
                         <ExternalLinkIcn size="14" />
                       </a>
                     </div>
@@ -267,8 +288,8 @@ export default function ChangelogToggle() {
                       <button
                         type="button"
                         className="btn round btn-md gray gray-sh"
-                        onClick={() => closeModal()}>
-                        Skip
+                        onClick={() => handleSkip()}>
+                        {__('Skip', 'bit-integrations')}
                       </button>
                       <button
                         type="button"

@@ -8,26 +8,24 @@ class TheEventsCalendarAction
 {
     public function execute($integrationData, $fieldValues)
     {
-        TheEventsCalendarHelper::checkedTheEventsCalendarExists();
-
         $integrationDetails = $integrationData->flow_details;
         $integId = $integrationData->id;
         $fieldMap = $integrationDetails->field_map;
-        $selectedTask = $integrationDetails->selectedTask;
-        $actions = (array) $integrationDetails->actions;
-        $selectedEvent = $integrationDetails->selectedEvent;
+        $selectedTask = $integrationDetails->selectedTask ?? '';
+        $utilities = $integrationDetails->utilities ?? [];
 
-        if (empty($fieldMap) || empty($selectedTask) || empty($selectedEvent)) {
-            return new WP_Error('REQ_FIELD_EMPTY', __('Fields map, task and event are required for The Events Calendar', 'bit-integrations'));
+        if (empty($selectedTask) || $selectedTask === 'newAttendee') {
+            TheEventsCalendarHelper::checkedTheEventsCalendarExists();
+
+            if (empty($fieldMap) || empty($selectedTask) || empty($integrationDetails->selectedEvent)) {
+                return new WP_Error('REQ_FIELD_EMPTY', __('Fields map, task and event are required for The Events Calendar', 'bit-integrations'));
+            }
+        } elseif (empty($fieldMap)) {
+            return new WP_Error('REQ_FIELD_EMPTY', __('Field map is required for The Events Calendar', 'bit-integrations'));
         }
 
-        $recordApiHelper = new TheEventsCalendarService($integId);
-        $theEventsCalendarResponse = $recordApiHelper->execute($fieldValues, $fieldMap, $selectedTask, $selectedEvent, $actions);
+        $recordApiHelper = new TheEventsCalendarService($integrationDetails, $integId);
 
-        if (is_wp_error($theEventsCalendarResponse)) {
-            return $theEventsCalendarResponse;
-        }
-
-        return $theEventsCalendarResponse;
+        return $recordApiHelper->execute($fieldValues, $fieldMap, $utilities);
     }
 }

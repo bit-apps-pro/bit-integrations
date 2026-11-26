@@ -23,16 +23,13 @@ export default function TheEventsCalendarAuthorization({
       authDetails={{
         authType: AUTH_TYPES.WP_PLUGIN_CHECK,
         pluginCheck: {
-          checks: [
-            { type: 'plugin_file', value: 'the-events-calendar/the-events-calendar.php' },
-            { type: 'plugin_file', value: 'event-tickets/event-tickets.php' }
-          ],
+          checks: [{ type: 'plugin_file', value: 'the-events-calendar/the-events-calendar.php' }],
           logic: 'AND'
         }
       }}
       noteDetails={{
         note: __(
-          'To use The Events Calendar integration, make sure the The Events Calendar and Event Tickets plugins are installed and active on your site.',
+          'Install and activate The Events Calendar. Register New Attendee also needs Event Tickets. Duplicate Event, Create Recurring Event and the series tasks also need The Events Calendar Pro.',
           'bit-integrations'
         )
       }}

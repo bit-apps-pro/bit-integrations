@@ -1,4 +1,3 @@
-/* eslint-disable no-param-reassign */
 import { useState } from 'react'
 import { useNavigate, useParams } from 'react-router'
 import { useRecoilState, useRecoilValue } from 'recoil'
@@ -10,8 +9,7 @@ import SetEditIntegComponents from '../IntegrationHelpers/SetEditIntegComponents
 import EditWebhookInteg from '../EditWebhookInteg'
 import { saveActionConf } from '../IntegrationHelpers/IntegrationHelpers'
 import IntegrationStepThree from '../IntegrationHelpers/IntegrationStepThree'
-import { isUserSourceIncomplete } from '../IntegrationHelpers/userSource'
-import { handleInput } from './PaidMembershipProCommonFunc'
+import { handleInput, isPaidMembershipProConfIncomplete } from './PaidMembershipProCommonFunc'
 import PaidMembershipProIntegLayout from './PaidMembershipProIntegLayout'
 
 function EditPaidMembershipPro({ allIntegURL }) {
@@ -69,12 +67,7 @@ function EditPaidMembershipPro({ allIntegURL }) {
             setSnackbar
           })
         }
-        disabled={
-          !paidMembershipProConf.mainAction ||
-          isLoading ||
-          paidMembershipProConf.selectedMembership === undefined ||
-          isUserSourceIncomplete(paidMembershipProConf)
-        }
+        disabled={isLoading || isPaidMembershipProConfIncomplete(paidMembershipProConf)}
         isLoading={isLoading}
         dataConf={paidMembershipProConf}
         setDataConf={setPaidMembershipProConf}

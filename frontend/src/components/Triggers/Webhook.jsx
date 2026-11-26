@@ -19,6 +19,7 @@ import EyeOffIcn from '../Utilities/EyeOffIcn'
 import Note from '../Utilities/Note'
 import { APP_CONFIG } from '../../config/app'
 import TutorialLink from '../Utilities/TutorialLink'
+import { organizeWebhookFields } from '../../Utils/webhookResponseFields'
 
 const Webhook = () => {
   const [newFlow, setNewFlow] = useRecoilState($newFlow)
@@ -138,6 +139,8 @@ const Webhook = () => {
           }))
         }
 
+        convertedData = organizeWebhookFields(convertedData, data)
+
         tmpNewFlow.triggerDetail.tmp = resp.data.webhook
         tmpNewFlow.triggerDetail.data = convertedData
         tmpNewFlow.triggerDetail.hook_id = hookID
@@ -199,7 +202,12 @@ const Webhook = () => {
         )}
       </div>
       {showResponse && (
-        <WebhookDataTable data={newFlow?.triggerDetail?.data} flow={newFlow} setFlow={setNewFlow} />
+        <WebhookDataTable
+          data={newFlow?.triggerDetail?.data}
+          payload={newFlow?.triggerDetail?.tmp}
+          flow={newFlow}
+          setFlow={setNewFlow}
+        />
       )}
       <button
         onClick={setTriggerData}
@@ -210,7 +218,10 @@ const Webhook = () => {
       </button>
       <div className="flx flx-center">
         <div style={{ width: '100%', maxWidth: 500 }}>
-          <Note note={info} isInstruction={true} maxWidth="100%">
+          <Note
+            note={setupNotes[newFlow?.triggered_entity] ?? info}
+            isInstruction={true}
+            maxWidth="100%">
             <TutorialLink
               linkKey={triggerLinkKey}
               linksMap={triggerTutorialLinks}
@@ -251,3 +262,43 @@ const info = `${__(
               'bit-integrations'
             )}</p>
   `
+
+const paymentFormNote = `<h4>${__('Quick Setup', 'bit-integrations')}</h4>
+            <ol>
+                <li>${__('Copy the Webhook URL.', 'bit-integrations')}</li>
+                <li>${__(
+                  'In PaymentForm.io, go to <b>Webhooks</b> and click <b>Add Webhook</b>.',
+                  'bit-integrations'
+                )}</li>
+                <li>${__('Paste the URL into <b>Destination URL</b>.', 'bit-integrations')}</li>
+                <li>${__(
+                  'Set the <b>Form scope</b>. To use one form only, select <b>Selected Forms</b> and select the form.',
+                  'bit-integrations'
+                )}</li>
+                <li>${__(
+                  'In <b>Events to send</b>, select only the events this flow needs. An empty list sends all events, and each payment then runs the flow two times.',
+                  'bit-integrations'
+                )}</li>
+                <li>${__('Click <b>Create Webhook</b>.', 'bit-integrations')}</li>
+                <li>${__(
+                  'Click <b>Fetch</b> here, then submit your PaymentForm.io form.',
+                  'bit-integrations'
+                )}</li>
+                <li>${__(
+                  'When the response data shows, click <b>Set Action</b>.',
+                  'bit-integrations'
+                )}</li>
+            </ol>
+            <p>${__(
+              'The <b>event</b> field shows which event started the flow. To run the flow for one event only, add a condition on this field.',
+              'bit-integrations'
+            )}</p>
+            <p>${__(
+              'Fetch shows the fields of the event that PaymentForm.io sends. To get the payment fields, send <b>Payment Succeeded</b> while you fetch.',
+              'bit-integrations'
+            )}</p>
+  `
+
+const setupNotes = {
+  PaymentForm: paymentFormNote
+}

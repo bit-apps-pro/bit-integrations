@@ -3,6 +3,7 @@
 namespace BitApps\Integrations\Actions\PaidMembershipPro;
 
 use BitApps\Integrations\Config;
+use BitApps\Integrations\Core\Util\Hooks;
 
 class PaidMembershipProHelper
 {
@@ -46,5 +47,15 @@ class PaidMembershipProHelper
         }
 
         wp_send_json_success($allLevels);
+    }
+
+    public static function getProfileFields()
+    {
+        if (!self::pluginActive()) {
+            // translators: %s: Plugin name
+            wp_send_json_error(wp_sprintf(__('%s is not installed or activated', 'bit-integrations'), 'Paid Memberships Pro'));
+        }
+
+        wp_send_json_success(Hooks::apply(Config::withPrefix('paid_membership_pro_profile_fields'), []));
     }
 }

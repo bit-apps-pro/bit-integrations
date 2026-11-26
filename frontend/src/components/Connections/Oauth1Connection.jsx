@@ -1,6 +1,11 @@
 import { useCallback, useMemo, useState } from 'react'
 import { authorizeConnection } from '../../Utils/connectionApi'
-import { AUTH_TYPES, buildDefaultConnectionName, defaultEncryptKeys } from '../../Utils/connectionAuth'
+import {
+  AUTH_TYPES,
+  buildDefaultConnectionName,
+  defaultEncryptKeys,
+  getConnectionAppSlug
+} from '../../Utils/connectionAuth'
 import {
   normalizeAdditionalHeaders,
   resolveConfigValue,
@@ -116,6 +121,7 @@ export default function Oauth1Connection({
     connectionName: buildDefaultConnectionName(config?.type || config?.app_slug, connections)
   }))
 
+  const appSlug = getConnectionAppSlug(config)
   const callbackUrl = useMemo(
     () => authDetails?.callbackUrl || getCallbackState(),
     [authDetails?.callbackUrl]
@@ -259,14 +265,14 @@ export default function Oauth1Connection({
 
   const buildSavePayload = useCallback(
     payload => ({
-      app_slug: config?.app_slug || config?.type,
+      app_slug: appSlug,
       auth_type: AUTH_TYPES.OAUTH1,
       connection_name: formData.connectionName,
       account_name: formData.connectionName,
       auth_details: payload.auth_details,
       encrypt_keys: authDetails?.encryptKeys || defaultEncryptKeys[AUTH_TYPES.OAUTH1] || []
     }),
-    [authDetails?.encryptKeys, config?.app_slug, config?.type, formData.connectionName]
+    [appSlug, authDetails?.encryptKeys, formData.connectionName]
   )
 
   const buildConfigUpdate = useCallback(

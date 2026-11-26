@@ -14,6 +14,7 @@ export default function TheEventsCalendarFieldMap({
 }) {
   const requiredFields = theEventsCalendarConf?.staticFields.filter(fld => fld.required === true) || []
   const customFields = theEventsCalendarConf?.staticFields?.filter(fld => fld.required === false) || []
+  const additionalFields = theEventsCalendarConf?.allCustomFields || []
 
   return (
     <div className="flx mt-2 mb-2 btcbi-field-map">
@@ -68,11 +69,22 @@ export default function TheEventsCalendarFieldMap({
                 {requiredFields[i].label}
               </option>
             ) : (
-              customFields.map(({ key, label }) => (
-                <option key={key} value={key}>
-                  {label}
-                </option>
-              ))
+              <>
+                {customFields.map(({ key, label }) => (
+                  <option key={key} value={key}>
+                    {label}
+                  </option>
+                ))}
+                {additionalFields.length > 0 && (
+                  <optgroup label={__('Custom Fields', 'bit-integrations')}>
+                    {additionalFields.map(({ value, label }) => (
+                      <option key={value} value={value}>
+                        {label}
+                      </option>
+                    ))}
+                  </optgroup>
+                )}
+              </>
             )}
           </select>
         </div>

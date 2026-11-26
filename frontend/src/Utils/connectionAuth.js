@@ -26,6 +26,18 @@ export const defaultEncryptKeys = {
 
 export const isWpPluginCheckType = authType => authType === AUTH_TYPES.WP_PLUGIN_CHECK
 
+const LEGACY_TYPE_APP_SLUGS = Object.freeze({
+  SendinBlue: 'Brevo(Sendinblue)',
+  ConvertKit: 'Kit(ConvertKit)',
+  Mailify: 'Sarbacane(Mailify)',
+  'Zoho Marketing Hub': 'Zoho Marketing Automation(Zoho Marketing Hub)',
+  'Kirim Email': 'KirimEmail',
+  Fabman: 'fabman'
+})
+
+export const getConnectionAppSlug = config =>
+  config?.app_slug || LEGACY_TYPE_APP_SLUGS[config?.type] || config?.type
+
 // Pre-fills the required connection name so the user never has to invent one.
 // Suffixes a counter when the plain "{App} Connection" label is already taken.
 export const buildDefaultConnectionName = (appName, connections = []) => {

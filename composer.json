@@ -23,6 +23,7 @@
     }
   },
   "require": {
+    "bitapps/wp-telemetry": "v2.0.0",
     "typisttech/imposter-plugin": "^0.6.2"
   },
   "extra": {

@@ -6,7 +6,8 @@ export const webhookIntegrations = [
   'WPFunnels',
   'Typebot',
   'JetForm',
-  'FluentSupport'
+  'FluentSupport',
+  'PaymentForm'
 ]
 
 export const customFormIntegrations = [
@@ -107,6 +108,8 @@ export const customFormIntegrations = [
   'Wsms',
   'WebbaBooking',
   'WpSimpleBookingCalendar',
+  'Booknetic',
+  'WpHotelBooking',
   'B2BKing',
   'FormyChat',
   'MainWP',
@@ -133,7 +136,12 @@ export const customFormIntegrations = [
   'Pointics',
   'QuizAndSurveyMaster',
   'QuizMaker',
-  'RoxAppointmentBooking'
+  'RoxAppointmentBooking',
+  'NiroHelp',
+  'WpActivityLog',
+  'BitConnect',
+  'RestaurantReservations',
+  'BitSocial'
 ]
 
 export const actionHookIntegrations = ['ActionHook']

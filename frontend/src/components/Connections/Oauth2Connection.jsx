@@ -1,5 +1,10 @@
 import { useCallback, useMemo, useState } from 'react'
-import { AUTH_TYPES, buildDefaultConnectionName, defaultEncryptKeys } from '../../Utils/connectionAuth'
+import {
+  AUTH_TYPES,
+  buildDefaultConnectionName,
+  defaultEncryptKeys,
+  getConnectionAppSlug
+} from '../../Utils/connectionAuth'
 import { resolveTemplate } from '../../Utils/connectionTemplates'
 import useConnectionAuthorize from '../../Utils/useConnectionAuthorize'
 import {
@@ -98,6 +103,7 @@ export default function Oauth2Connection({
     extraFields = []
   } = authDetails || {}
 
+  const appSlug = getConnectionAppSlug(config)
   const redirectUri = useMemo(() => getRedirectUri(), [])
 
   // Resolve {fieldName} templates in endpoint URLs using current form values (e.g., Mautic baseUrl)
@@ -273,7 +279,7 @@ export default function Oauth2Connection({
       })
 
       return {
-        app_slug: config?.app_slug || config?.type,
+        app_slug: appSlug,
         auth_type: AUTH_TYPES.OAUTH2,
         connection_name: formData.connectionName,
         account_name: formData.connectionName,
@@ -285,9 +291,8 @@ export default function Oauth2Connection({
       }
     },
     [
+      appSlug,
       clientAuthentication,
-      config?.app_slug,
-      config?.type,
       extraFields,
       extraTokenFields,
       formData,

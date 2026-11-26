@@ -8,12 +8,16 @@ if (!defined('ABSPATH')) {
 use BitApps\Integrations\controller\ConnectionController;
 use BitApps\Integrations\controller\IntegrationTagController;
 use BitApps\Integrations\controller\PostController;
+use BitApps\Integrations\controller\TelemetryController;
 use BitApps\Integrations\controller\UserController;
 use BitApps\Integrations\Core\Util\CustomFuncValidator;
 use BitApps\Integrations\Core\Util\Route;
 use BitApps\Integrations\Flow\Flow;
 use BitApps\Integrations\Log\LogHandler;
 use BitApps\Integrations\Triggers\TriggerController;
+
+Route::get('telemetry/status', [TelemetryController::class, 'status']);
+Route::post('telemetry/consent', [TelemetryController::class, 'consent']);
 
 Route::post('log/get', [LogHandler::class, 'get']);
 Route::post('log/delete', [LogHandler::class, 'delete']);

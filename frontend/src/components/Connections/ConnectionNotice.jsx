@@ -2,14 +2,7 @@ import { Link } from 'react-router'
 import InfoIcn from '../../Icons/InfoIcn'
 import { __ } from '../../Utils/i18nwrap'
 
-/**
- * Read-only explainer for the integration info page.
- *
- * `isLegacy` covers integrations saved before 2.10.0: they keep their credentials
- * inline in flow_details instead of pointing at a connection row, so the info page
- * has nothing to show them and no connection to switch.
- */
-export default function ConnectionNotice({ onOpenSettings }) {
+export default function ConnectionNotice() {
   return (
     <div className={`conn-notice conn-notice-legacy w-6`} role="note">
       <span className="conn-notice-icn" aria-hidden="true">
@@ -40,7 +33,7 @@ export default function ConnectionNotice({ onOpenSettings }) {
         </p>
         <p>
           {__(
-            'Want it on the new system? Open the integration settings and authorize this app once. It then starts using a saved connection you can reuse for every future integration.',
+            'Want it on the new system? Pick a connection above, or add a new one. This integration switches to it instantly.',
             'bit-integrations'
           )}
         </p>
