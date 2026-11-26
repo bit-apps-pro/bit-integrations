@@ -1,22 +1,40 @@
-import { useEffect } from 'react'
+import { create } from 'mutative'
+import MultiSelect from 'react-multiple-select-dropdown-lite'
+import { useRecoilValue } from 'recoil'
+import { $appConfigState } from '../../../GlobalStates'
 import { __ } from '../../../Utils/i18nwrap'
+import { checkIsPro, getProLabel } from '../../Utilities/ProUtilHelpers'
 import { addFieldMap } from './IntegrationHelpers'
-import { getAllBrand, getAllList } from './SendyCommonFunc'
+import SendyActions from './SendyActions'
+import { generateMappedField, getAllBrand, getAllList } from './SendyCommonFunc'
 import SendyFieldMap from './SendyFieldMap'
-
-// import { addFieldMap } from './IntegrationHelpers'
-// import { getAllRecipient } from './RapidmailCommonFunc'
-// import RapidmailFieldMap from './RapidmailFieldMap'
+import { getAction, hasUtilities, modules, needsCampaignLists, needsList } from './staticData'
+import 'react-multiple-select-dropdown-lite/dist/index.css'
 
 export default function SendyIntegLayout({
   formFields,
-  handleInput,
   sendyConf,
   setSendyConf,
   isLoading,
   setIsLoading,
   setSnackbar
 }) {
+  const { isPro } = useRecoilValue($appConfigState)
+  const action = getAction(sendyConf)
+
+  const handleMainAction = value => {
+    if (!value) return
+
+    const nextConf = create(sendyConf, draftConf => {
+      draftConf.mainAction = value
+      draftConf.field_map = [{ formField: '', sendyField: '' }]
+      delete draftConf.utilities
+    })
+
+    nextConf.field_map = generateMappedField(nextConf)
+    setSendyConf(nextConf)
+  }
+
   const handleChange = e => {
     const newConf = { ...sendyConf }
     const { name } = e.target
@@ -31,9 +49,34 @@ export default function SendyIntegLayout({
     setSendyConf({ ...newConf })
   }
 
+  const setCampaignLists = value =>
+    setSendyConf(prevConf =>
+      create(prevConf, draftConf => {
+        draftConf.list_ids = value ? value.split(',').filter(Boolean) : []
+      })
+    )
+
   return (
     <>
       <br />
+      <div className="flx">
+        <b className="wdt-200 d-in-b">{__('Action:', 'bit-integrations')}</b>
+        <MultiSelect
+          title="mainAction"
+          defaultValue={action}
+          className="btcd-paper-drpdwn w-5"
+          onChange={handleMainAction}
+          options={modules.map(module => ({
+            disabled: !checkIsPro(isPro, module.is_pro),
+            label: checkIsPro(isPro, module.is_pro) ? module.label : getProLabel(module.label),
+            value: module.name
+          }))}
+          singleSelect
+          closeOnSelect
+        />
+      </div>
+      <br />
+
       <b className="wdt-200 d-in-b">{__('Brand:', 'bit-integrations')}</b>
       <select
         onChange={handleChange}
@@ -59,7 +102,7 @@ export default function SendyIntegLayout({
       <br />
       <br />
 
-      {sendyConf?.brand_id && (
+      {sendyConf?.brand_id && needsList.includes(action) && (
         <>
           <b className="wdt-200 d-in-b">{__('List:', 'bit-integrations')}</b>
           <select
@@ -84,6 +127,38 @@ export default function SendyIntegLayout({
             &#x21BB;
           </button>
         </>
+      )}
+
+      {sendyConf?.brand_id && needsCampaignLists.includes(action) && (
+        <div className="flx">
+          <b className="wdt-200 d-in-b">{__('Lists:', 'bit-integrations')}</b>
+          <MultiSelect
+            title="list_ids"
+            defaultValue={sendyConf?.list_ids?.join(',') ?? null}
+            className="btcd-paper-drpdwn w-5"
+            options={(sendyConf?.default?.lists || []).map(({ listId, listName }) => ({
+              label: listName,
+              value: String(listId)
+            }))}
+            onChange={setCampaignLists}
+          />
+          <button
+            onClick={() => getAllList(sendyConf, setSendyConf, setIsLoading, setSnackbar)}
+            className="icn-btn sh-sm ml-2 mr-2 tooltip"
+            style={{ '--tooltip-txt': `'${__('Fetch All List', 'bit-integrations')}'` }}
+            type="button"
+            disabled={isLoading}>
+            &#x21BB;
+          </button>
+        </div>
+      )}
+      {sendyConf?.brand_id && needsCampaignLists.includes(action) && (
+        <small className="d-blk mt-2 ml-1">
+          {__(
+            'To send the campaign, select a list or map segment IDs. A draft does not need a list.',
+            'bit-integrations'
+          )}
+        </small>
       )}
       <br />
       <div className="mt-5">
@@ -119,6 +194,14 @@ export default function SendyIntegLayout({
         </button>
       </div>
       <br />
+
+      {hasUtilities.includes(action) && (
+        <div className="mt-4">
+          <b className="wdt-100">{__('Utilities', 'bit-integrations')}</b>
+          <div className="btcd-hr mt-1" />
+          <SendyActions action={action} sendyConf={sendyConf} setSendyConf={setSendyConf} />
+        </div>
+      )}
       <br />
     </>
   )

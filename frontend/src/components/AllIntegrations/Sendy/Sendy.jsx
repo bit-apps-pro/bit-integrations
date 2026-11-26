@@ -11,6 +11,7 @@ import SendyAuthorization from './SendyAuthorization'
 import IntegrationStepThree from '../IntegrationHelpers/IntegrationStepThree'
 import SendyIntegLayout from './SendyIntegLayout'
 import { checkMappedFields, handleInput } from './SendyCommonFunc'
+import { DEFAULT_ACTION } from './staticData'
 
 function Sendy({ formFields, setFlow, flow, allIntegURL }) {
   const navigate = useNavigate()
@@ -18,18 +19,13 @@ function Sendy({ formFields, setFlow, flow, allIntegURL }) {
   const [step, setstep] = useState(1)
   const [snack, setSnackbar] = useState({ show: false })
 
-  const subscriberFields = [
-    { key: 'email', label: __('Email', 'bit-integrations'), required: true },
-    { key: 'name', label: __('Name', 'bit-integrations'), required: false }
-  ]
-
   const [sendyConf, setSendyConf] = useState({
     name: 'Sendy',
     type: 'Sendy',
     api_key: '',
     sendy_url: '',
+    mainAction: DEFAULT_ACTION,
     field_map: [{ formField: '', sendyField: '' }],
-    subscriberFields,
     actions: {}
   })
 

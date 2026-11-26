@@ -2,6 +2,7 @@
 import toast from 'react-hot-toast'
 import { __ } from '../../../Utils/i18nwrap'
 import bitsFetch from '../../../Utils/bitsFetch'
+import { DEFAULT_ACTION, fieldsByAction, getAction, needsCampaignLists, needsList } from './staticData'
 
 const buildAuthRequestParams = conf =>
   conf?.connection_id
@@ -86,8 +87,10 @@ export const getAllList = (sendyConf, setSendyConf, setIsLoading, setSnackbar) =
   })
 }
 
+export const mappableFields = sendyConf => fieldsByAction[getAction(sendyConf)] || []
+
 export const generateMappedField = sendyConf => {
-  const requiredFlds = sendyConf?.subscriberFields.filter(fld => fld.required === true)
+  const requiredFlds = mappableFields(sendyConf).filter(fld => fld.required === true)
   return requiredFlds.length > 0
     ? requiredFlds.map(field => ({ formField: '', sendyField: field.key }))
     : [{ formField: '', sendyField: '' }]
@@ -105,5 +108,23 @@ export const checkMappedFields = sendyConf => {
   if (mappedFields.length > 0) {
     return false
   }
+
+  const action = getAction(sendyConf)
+  const mappedKeys = (sendyConf?.field_map || []).map(mappedField => mappedField.sendyField)
+  const missingRequired = mappableFields(sendyConf).some(
+    fld => fld.required && !mappedKeys.includes(fld.key)
+  )
+  if (missingRequired) {
+    return false
+  }
+
+  if (needsList.includes(action) && action !== DEFAULT_ACTION && !sendyConf?.list_id) {
+    return false
+  }
+
+  if (needsCampaignLists.includes(action) && !sendyConf?.brand_id) {
+    return false
+  }
+
   return true
 }
