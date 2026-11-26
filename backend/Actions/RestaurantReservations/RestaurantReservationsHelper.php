@@ -2,9 +2,7 @@
 
 namespace BitApps\Integrations\Actions\RestaurantReservations;
 
-use WP_Error;
-
-class RestaurantReservationsController
+class RestaurantReservationsHelper
 {
     public static function isExists()
     {
@@ -81,22 +79,6 @@ class RestaurantReservationsController
         }
 
         wp_send_json_success(['tables' => $tables], 200);
-    }
-
-    public function execute($integrationData, $fieldValues)
-    {
-        $integrationDetails = $integrationData->flow_details;
-        $integId = $integrationData->id;
-        $fieldMap = $integrationDetails->field_map ?? [];
-        $utilities = isset($integrationDetails->utilities) ? $integrationDetails->utilities : [];
-
-        if (empty($fieldMap)) {
-            return new WP_Error('field_map_empty', __('Field map is empty', 'bit-integrations'));
-        }
-
-        $recordApiHelper = new RecordApiHelper($integrationDetails, $integId);
-
-        return $recordApiHelper->execute($fieldValues, $fieldMap, $utilities);
     }
 
     public static function isPluginActive()
