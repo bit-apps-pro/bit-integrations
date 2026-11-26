@@ -82,6 +82,13 @@ export default function SendyIntegLayout({
     </button>
   )
 
+  const setCampaignLists = value =>
+    setSendyConf(prevConf =>
+      create(prevConf, draftConf => {
+        draftConf.list_ids = value ? value.split(',').filter(Boolean) : []
+      })
+    )
+
   const refreshLists = () => getAllList(sendyConf, setSendyConf, setIsLoading, setSnackbar)
 
   return (
@@ -92,6 +99,7 @@ export default function SendyIntegLayout({
         <MultiSelect
           title="mainAction"
           defaultValue={action}
+          clearable={false}
           className="btcd-paper-drpdwn w-5"
           onChange={handleMainAction}
           options={modules.map(module => ({

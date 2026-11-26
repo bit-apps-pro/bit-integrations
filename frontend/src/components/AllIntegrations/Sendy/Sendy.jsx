@@ -25,7 +25,7 @@ function Sendy({ formFields, setFlow, flow, allIntegURL }) {
     api_key: '',
     sendy_url: '',
     mainAction: DEFAULT_ACTION,
-    field_map: [{ formField: '', sendyField: '' }],
+    field_map: [{ formField: '', sendyField: 'email' }],
     actions: {}
   })
 

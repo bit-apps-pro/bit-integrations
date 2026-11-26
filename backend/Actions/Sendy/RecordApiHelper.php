@@ -107,7 +107,7 @@ class RecordApiHelper
 
         $apiResponse = $this->insertRecord($finalData, rtrim($integrationDetails->sendy_url, '/'));
 
-        if ($apiResponse === true) {
+        if (\in_array($apiResponse, [true, 1, '1', 'true'], true)) {
             LogHandler::save($this->_integrationID, ['type' => 'record', 'type_name' => 'add-subscriber'], 'success', wp_json_encode(__('Subscriber added successfully', 'bit-integrations')));
         } else {
             LogHandler::save($this->_integrationID, ['type' => 'subscriber', 'type_name' => 'add-subscriber'], 'error', wp_json_encode(is_wp_error($apiResponse) ? $apiResponse->get_error_message() : $apiResponse));
