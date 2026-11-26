@@ -7,7 +7,7 @@ use BitApps\Integrations\Core\Util\Common;
 use BitApps\Integrations\Core\Util\Hooks;
 use BitApps\Integrations\Log\LogHandler;
 
-class RecordApiHelper
+class WpActivityLogService
 {
     private $_integrationID;
 
@@ -21,7 +21,7 @@ class RecordApiHelper
 
     public function execute($fieldValues, $fieldMap, $utilities)
     {
-        if (!WpActivityLogController::isPluginActive()) {
+        if (!WpActivityLogHelper::isPluginActive()) {
             return [
                 'success' => false,
                 'message' => __('WP Activity Log is not installed or activated', 'bit-integrations')
