@@ -8,7 +8,7 @@ use BitApps\Integrations\Core\Util\Common;
 use BitApps\Integrations\Core\Util\Hooks;
 use BitApps\Integrations\Log\LogHandler;
 
-class RecordApiHelper
+class FollowUpBossService
 {
     private const SETTING_KEYS = [
         'action_plan_id',
