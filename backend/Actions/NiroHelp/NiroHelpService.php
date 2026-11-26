@@ -7,7 +7,7 @@ use BitApps\Integrations\Core\Util\Common;
 use BitApps\Integrations\Core\Util\Hooks;
 use BitApps\Integrations\Log\LogHandler;
 
-class RecordApiHelper
+class NiroHelpService
 {
     private const ACTION_CONFIG_SETTINGS = [
         'change_ticket_status' => ['status' => 'status'],
