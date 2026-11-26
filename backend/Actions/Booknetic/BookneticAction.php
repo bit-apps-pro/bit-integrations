@@ -4,7 +4,7 @@ namespace BitApps\Integrations\Actions\Booknetic;
 
 use WP_Error;
 
-class BookneticController
+class BookneticAction
 {
     public function execute($integrationData, $fieldValues)
     {
