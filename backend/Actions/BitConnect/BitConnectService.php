@@ -5,7 +5,7 @@ namespace BitApps\Integrations\Actions\BitConnect;
 use BitApps\Integrations\Core\Util\Common;
 use BitApps\Integrations\Log\LogHandler;
 
-class RecordApiHelper
+class BitConnectService
 {
     private $_integrationID;
 
@@ -21,8 +21,8 @@ class RecordApiHelper
     {
         $mainAction = $this->_integrationDetails->mainAction ?? '';
 
-        if (!BitConnectController::isPluginActive()) {
-            $response = ['success' => false, 'message' => BitConnectController::inactiveMessage()];
+        if (!BitConnectHelper::isPluginActive()) {
+            $response = ['success' => false, 'message' => BitConnectHelper::inactiveMessage()];
             LogHandler::save($this->_integrationID, ['type' => 'BitConnect', 'type_name' => $mainAction], 'error', $response);
 
             return $response;
