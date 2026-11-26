@@ -6,7 +6,7 @@ use BitApps\Integrations\Authorization\AuthorizationType;
 use BitApps\Integrations\Log\LogHandler;
 use WP_Error;
 
-class MicrosoftExcelController
+class MicrosoftExcelAction
 {
     public static array $authConfig = [
         'authType' => AuthorizationType::OAUTH2,
