@@ -7,7 +7,7 @@ use BitApps\Integrations\Core\Util\Common;
 use BitApps\Integrations\Core\Util\Hooks;
 use BitApps\Integrations\Log\LogHandler;
 
-class RecordApiHelper
+class WpHotelBookingService
 {
     private $_integrationID;
 
@@ -23,7 +23,7 @@ class RecordApiHelper
     {
         $mainAction = $this->_integrationDetails->mainAction ?? 'create_booking';
 
-        if (!WpHotelBookingController::isPluginActive()) {
+        if (!WpHotelBookingHelper::isPluginActive()) {
             $response = [
                 'success' => false,
                 'message' => __('WP Hotel Booking is not active. Install and activate WP Hotel Booking.', 'bit-integrations')
