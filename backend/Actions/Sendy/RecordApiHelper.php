@@ -10,10 +10,6 @@ use BitApps\Integrations\Log\LogHandler;
 
 class RecordApiHelper
 {
-    private $_defaultHeader;
-
-    private $_tokenDetails;
-
     private $_integrationID;
 
     public function __construct($integId)

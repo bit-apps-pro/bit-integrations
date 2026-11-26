@@ -3,6 +3,7 @@ import MultiSelect from 'react-multiple-select-dropdown-lite'
 import { useRecoilValue } from 'recoil'
 import { $appConfigState } from '../../../GlobalStates'
 import { __ } from '../../../Utils/i18nwrap'
+import Loader from '../../Loaders/Loader'
 import { checkIsPro, getProLabel } from '../../Utilities/ProUtilHelpers'
 import { addFieldMap } from './IntegrationHelpers'
 import SendyActions from './SendyActions'
@@ -35,26 +36,53 @@ export default function SendyIntegLayout({
     setSendyConf(nextConf)
   }
 
-  const handleChange = e => {
-    const newConf = { ...sendyConf }
-    const { name } = e.target
-    if (e.target.value !== '') {
-      newConf[name] = e.target.value
-    } else {
-      delete newConf[name]
-    }
-    if (name === 'brand_id') {
-      getAllList(newConf, setSendyConf, setIsLoading, setSnackbar)
-    }
-    setSendyConf({ ...newConf })
-  }
-
-  const setCampaignLists = value =>
+  const setField = (name, value) =>
     setSendyConf(prevConf =>
       create(prevConf, draftConf => {
-        draftConf.list_ids = value ? value.split(',').filter(Boolean) : []
+        if (value) {
+          draftConf[name] = value
+        } else {
+          delete draftConf[name]
+        }
       })
     )
+
+  const handleBrand = value => {
+    if (value === sendyConf?.brand_id) return
+
+    const nextConf = create(sendyConf, draftConf => {
+      if (value) {
+        draftConf.brand_id = value
+      } else {
+        delete draftConf.brand_id
+      }
+      delete draftConf.list_id
+      draftConf.list_ids = []
+      if (draftConf.default) draftConf.default.lists = []
+      if (draftConf.utilities) delete draftConf.utilities.selected_exclude_list_ids
+    })
+
+    setSendyConf(nextConf)
+    if (value) getAllList(nextConf, setSendyConf, setIsLoading, setSnackbar)
+  }
+
+  const listOptions = (sendyConf?.default?.lists || []).map(({ listId, listName }) => ({
+    label: listName,
+    value: String(listId)
+  }))
+
+  const refreshButton = (onClick, tooltip) => (
+    <button
+      onClick={onClick}
+      className="icn-btn sh-sm ml-2 mr-2 tooltip"
+      style={{ '--tooltip-txt': `'${tooltip}'` }}
+      type="button"
+      disabled={isLoading}>
+      &#x21BB;
+    </button>
+  )
+
+  const refreshLists = () => getAllList(sendyConf, setSendyConf, setIsLoading, setSnackbar)
 
   return (
     <>
@@ -77,79 +105,53 @@ export default function SendyIntegLayout({
       </div>
       <br />
 
-      <b className="wdt-200 d-in-b">{__('Brand:', 'bit-integrations')}</b>
-      <select
-        onChange={handleChange}
-        name="brand_id"
-        value={sendyConf.brand_id}
-        className="btcd-paper-inp w-5">
-        <option value="test">{__('Select Brand', 'bit-integrations')}</option>
-        {sendyConf?.default?.brandList &&
-          sendyConf.default.brandList.map(({ brandId, brandName }) => (
-            <option key={brandId} value={brandId}>
-              {brandName}
-            </option>
-          ))}
-      </select>
-      <button
-        onClick={() => getAllBrand(sendyConf, setSendyConf, setIsLoading, setSnackbar)}
-        className="icn-btn sh-sm ml-2 mr-2 tooltip"
-        style={{ '--tooltip-txt': `'${__('Fetch All List', 'bit-integrations')}'` }}
-        type="button"
-        disabled={isLoading}>
-        &#x21BB;
-      </button>
-      <br />
-      <br />
+      <div className="flx">
+        <b className="wdt-200 d-in-b">{__('Brand:', 'bit-integrations')}</b>
+        <MultiSelect
+          title="brand_id"
+          defaultValue={sendyConf?.brand_id ?? null}
+          className="btcd-paper-drpdwn w-5"
+          options={(sendyConf?.default?.brandList || []).map(({ brandId, brandName }) => ({
+            label: brandName,
+            value: String(brandId)
+          }))}
+          onChange={handleBrand}
+          singleSelect
+          closeOnSelect
+        />
+        {refreshButton(
+          () => getAllBrand(sendyConf, setSendyConf, setIsLoading, setSnackbar),
+          __('Refresh Brands', 'bit-integrations')
+        )}
+      </div>
 
       {sendyConf?.brand_id && needsList.includes(action) && (
-        <>
+        <div className="flx mt-4">
           <b className="wdt-200 d-in-b">{__('List:', 'bit-integrations')}</b>
-          <select
-            onChange={handleChange}
-            name="list_id"
-            value={sendyConf.list_id}
-            className="btcd-paper-inp w-5">
-            <option value="test">{__('Select List', 'bit-integrations')}</option>
-            {sendyConf?.default?.lists &&
-              sendyConf.default.lists.map(({ listId, listName }) => (
-                <option key={listId} value={listId}>
-                  {listName}
-                </option>
-              ))}
-          </select>
-          <button
-            onClick={() => getAllList(sendyConf, setSendyConf, setIsLoading, setSnackbar)}
-            className="icn-btn sh-sm ml-2 mr-2 tooltip"
-            style={{ '--tooltip-txt': `'${__('Fetch All List', 'bit-integrations')}'` }}
-            type="button"
-            disabled={isLoading}>
-            &#x21BB;
-          </button>
-        </>
+          <MultiSelect
+            title="list_id"
+            defaultValue={sendyConf?.list_id ?? null}
+            className="btcd-paper-drpdwn w-5"
+            options={listOptions}
+            onChange={value => setField('list_id', value)}
+            singleSelect
+            closeOnSelect
+          />
+          {refreshButton(refreshLists, __('Refresh Lists', 'bit-integrations'))}
+        </div>
       )}
 
       {sendyConf?.brand_id && needsCampaignLists.includes(action) && (
-        <div className="flx">
+        <div className="flx mt-4">
           <b className="wdt-200 d-in-b">{__('Lists:', 'bit-integrations')}</b>
           <MultiSelect
             title="list_ids"
             defaultValue={sendyConf?.list_ids?.join(',') ?? null}
             className="btcd-paper-drpdwn w-5"
-            options={(sendyConf?.default?.lists || []).map(({ listId, listName }) => ({
-              label: listName,
-              value: String(listId)
-            }))}
+            options={listOptions}
             onChange={setCampaignLists}
           />
-          <button
-            onClick={() => getAllList(sendyConf, setSendyConf, setIsLoading, setSnackbar)}
-            className="icn-btn sh-sm ml-2 mr-2 tooltip"
-            style={{ '--tooltip-txt': `'${__('Fetch All List', 'bit-integrations')}'` }}
-            type="button"
-            disabled={isLoading}>
-            &#x21BB;
-          </button>
+          {refreshButton(refreshLists, __('Refresh Lists', 'bit-integrations'))}
         </div>
       )}
       {sendyConf?.brand_id && needsCampaignLists.includes(action) && (
@@ -159,6 +161,18 @@ export default function SendyIntegLayout({
             'bit-integrations'
           )}
         </small>
+      )}
+
+      {isLoading && (
+        <Loader
+          style={{
+            alignItems: 'center',
+            display: 'flex',
+            height: 100,
+            justifyContent: 'center',
+            transform: 'scale(0.7)'
+          }}
+        />
       )}
       <br />
       <div className="mt-5">

@@ -34,9 +34,9 @@ export default function SendyAuthorization({
 
   const note = `
   <small class="d-blk mt-5">
-    ${__('To get API , Please Visit', 'bit-integrations')}
-    <a class="btcd-link" href="https://app.sendy.com/api-key" target="_blank" rel="noreferrer">
-      ${__('Sendy API Console', 'bit-integrations')}
+    ${__('Find the API key in your Sendy installation under Settings.', 'bit-integrations')}
+    <a class="btcd-link" href="https://sendy.co/api" target="_blank" rel="noreferrer">
+      ${__('Sendy API documentation', 'bit-integrations')}
     </a>
   </small>
   `
