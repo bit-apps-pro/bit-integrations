@@ -1,32 +1,34 @@
-/* eslint-disable no-unused-expressions */
-import { __ } from '../../../Utils/i18nwrap'
+import { create } from 'mutative'
 
-export const addFieldMap = (i, confTmp, setConf) => {
-  const newConf = { ...confTmp }
-  newConf.field_map.splice(i, 0, {})
-  setConf({ ...newConf })
-}
+export const addFieldMap = (i, confTmp, setConf) =>
+  setConf(prevConf =>
+    create(prevConf, draftConf => {
+      draftConf.field_map.splice(i, 0, {})
+    })
+  )
 
-export const delFieldMap = (i, confTmp, setConf) => {
-  const newConf = { ...confTmp }
-  if (newConf.field_map.length > 1) {
-    newConf.field_map.splice(i, 1)
-  }
-
-  setConf({ ...newConf })
-}
+export const delFieldMap = (i, confTmp, setConf) =>
+  setConf(prevConf =>
+    create(prevConf, draftConf => {
+      if (draftConf.field_map.length > 1) {
+        draftConf.field_map.splice(i, 1)
+      }
+    })
+  )
 
 export const handleFieldMapping = (event, index, conftTmp, setConf) => {
-  const newConf = { ...conftTmp }
-  newConf.field_map[index][event.target.name] = event.target.value
+  const { name, value } = event.target
+  setConf(prevConf =>
+    create(prevConf, draftConf => {
+      draftConf.field_map[index][name] = value
 
-  if (event.target.value === 'custom') {
-    newConf.field_map[index].customValue = ''
-  }
+      if (value === 'custom') {
+        draftConf.field_map[index].customValue = ''
+      }
 
-  if (event.target.value === 'customFieldKey') {
-    newConf.field_map[index].customFieldKey = ''
-  }
-
-  setConf({ ...newConf })
+      if (value === 'customFieldKey') {
+        draftConf.field_map[index].customFieldKey = ''
+      }
+    })
+  )
 }

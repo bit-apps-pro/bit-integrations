@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { create } from 'mutative'
 import MultiSelect from 'react-multiple-select-dropdown-lite'
 import { useRecoilValue } from 'recoil'
@@ -22,9 +23,14 @@ export default function SendyIntegLayout({
 }) {
   const { isPro } = useRecoilValue($appConfigState)
   const action = getAction(sendyConf)
+  const [actionSelectKey, setActionSelectKey] = useState(0)
 
   const handleMainAction = value => {
-    if (!value) return
+    if (!value) {
+      setActionSelectKey(prevKey => prevKey + 1)
+      return
+    }
+    if (value === action) return
 
     const nextConf = create(sendyConf, draftConf => {
       draftConf.mainAction = value
@@ -97,6 +103,7 @@ export default function SendyIntegLayout({
       <div className="flx">
         <b className="wdt-200 d-in-b">{__('Action:', 'bit-integrations')}</b>
         <MultiSelect
+          key={`sendy-action-${actionSelectKey}`}
           title="mainAction"
           defaultValue={action}
           clearable={false}
