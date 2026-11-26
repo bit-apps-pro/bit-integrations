@@ -4,9 +4,9 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-use BitApps\Integrations\Actions\Bookly\BooklyController;
+use BitApps\Integrations\Actions\Bookly\BooklyHelper;
 use BitApps\Integrations\Core\Util\Route;
 
-Route::post('refresh_bookly_staff', [BooklyController::class, 'refreshStaff']);
-Route::post('refresh_bookly_services', [BooklyController::class, 'refreshServices']);
-Route::post('refresh_bookly_statuses', [BooklyController::class, 'refreshStatuses']);
+Route::post('refresh_bookly_staff', [BooklyHelper::class, 'refreshStaff']);
+Route::post('refresh_bookly_services', [BooklyHelper::class, 'refreshServices']);
+Route::post('refresh_bookly_statuses', [BooklyHelper::class, 'refreshStatuses']);

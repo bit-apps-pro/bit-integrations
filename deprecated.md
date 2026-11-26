@@ -329,14 +329,14 @@ wp_cache_set($cache_key, $data, $cache_group, 10 * MINUTE_IN_SECONDS);
 ```
 
 **Source Files:**
-- `backend/Actions/PaidMembershipPro/RecordApiHelper.php`
-- `backend/Actions/PaidMembershipPro/PaidMembershipProController.php`
-- `backend/Actions/MailMint/MailMintController.php`
-- `backend/Actions/LifterLms/LifterLmsController.php`
-- `backend/Actions/GamiPress/GamiPressController.php`
-- `backend/Actions/BuddyBoss/RecordApiHelper.php`
-- `backend/Actions/BuddyBoss/BuddyBossController.php`
-- `backend/Actions/Affiliate/AffiliateController.php`
+- `backend/Actions/PaidMembershipPro/PaidMembershipProService.php`
+- `backend/Actions/PaidMembershipPro/PaidMembershipProHelper.php`
+- `backend/Actions/MailMint/MailMintHelper.php`
+- `backend/Actions/LifterLms/LifterLmsHelper.php`
+- `backend/Actions/GamiPress/GamiPressHelper.php`
+- `backend/Actions/BuddyBoss/BuddyBossService.php`
+- `backend/Actions/BuddyBoss/BuddyBossHelper.php`
+- `backend/Actions/Affiliate/AffiliateHelper.php`
 - `backend/Triggers/FallbackTrigger/TriggerFallback.php`
 - `backend/Core/Util/Multisite.php`
 
@@ -631,6 +631,30 @@ s/btcbi_/bit_integrations_/g
 | `views/view-root.php` | 1 (constant) |
 | Cache key files (10 files) | 17 (cache keys) + 1 (cache group) |
 | Integration action files (40+ files) | 110+ (filters/actions) |
+
+---
+
+## 🧱 Renamed Action Classes (v2.11.0)
+
+Action integrations under `backend/Actions/<Name>/` move from `Controller` + `RecordApiHelper`
+to three classes. Folder names, route names, hook names and their arguments, and every stored
+flow value stay the same, so saved flows and bound filters keep working.
+
+| Old class | New class | Holds |
+|-----------|-----------|-------|
+| `Actions\<Name>\<Name>Controller` | `Actions\<Name>\<Name>Action` | `$authConfig`, the constructor, `execute()` (what Flow dispatches) |
+| `Actions\<Name>\<Name>Controller` | `Actions\<Name>\<Name>Helper` | route handlers, plugin checks, token refresh |
+| `Actions\<Name>\RecordApiHelper` | `Actions\<Name>\<Name>Service` | field mapping, API calls, hook fire points, log rows |
+| `Actions\<Name>\<Role>ApiHelper` | `Actions\<Name>\<Name><Role>Service` | e.g. `ZohoCRMFilesService`, `ZohoCRMTagService` |
+
+- Dispatch goes through `Core\Integration\ActionResolver`, which tries `<Name>Action` first and
+  still falls back to `<Name>Controller`, so an add-on that ships its own `<Name>Controller`
+  keeps working.
+- Kept permanently for Bit Integrations Pro 2.6.11–2.8.5, which resolve them by name:
+  `Actions\Salesforce\SalesforceController` (now an empty subclass of `SalesforceHelper`) and
+  `Actions\Moosend\MoosendHelper::formatPhoneNumber()`.
+- Code that calls a free action class directly should resolve the new name first, e.g.
+  `bit_integrations_get_class('Actions\\<Name>\\<Name>Helper')`, then fall back to the old one.
 
 ---
 

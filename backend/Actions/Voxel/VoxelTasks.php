@@ -22,8 +22,6 @@ final class VoxelTasks
 
     public const SET_PROFILE_VERIFIED = 'setProfileVerified';
 
-    // constants for static post type
-
     public const COLLECTION_POST_TYPE = 'collection';
 
     public const PROFILE_POST_TYPE = 'profile';

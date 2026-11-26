@@ -7,6 +7,7 @@ if (!defined('ABSPATH')) {
 }
 
 use BitApps\Integrations\Authorization\AuthorizationFactory;
+use BitApps\Integrations\Core\Integration\ActionResolver;
 use stdClass;
 use Throwable;
 
@@ -29,11 +30,13 @@ class CredentialInjector
             return;
         }
 
-        if (!property_exists($controllerClass, 'authConfig')) {
+        $configOwner = ActionResolver::authConfigOwner($controllerClass);
+
+        if ($configOwner === null) {
             return;
         }
 
-        $config = $controllerClass::$authConfig;
+        $config = $configOwner::$authConfig;
 
         try {
             $handler = AuthorizationFactory::getAuthorizationHandler(

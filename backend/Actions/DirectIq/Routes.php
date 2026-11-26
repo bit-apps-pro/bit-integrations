@@ -4,8 +4,8 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-use BitApps\Integrations\Actions\DirectIq\DirectIqController;
+use BitApps\Integrations\Actions\DirectIq\DirectIqHelper;
 use BitApps\Integrations\Core\Util\Route;
 
-Route::post('directIq_headers', [DirectIqController::class, 'directIqHeaders']);
-Route::post('directIq_lists', [DirectIqController::class, 'directIqLists']);
+Route::post('directIq_headers', [DirectIqHelper::class, 'directIqHeaders']);
+Route::post('directIq_lists', [DirectIqHelper::class, 'directIqLists']);

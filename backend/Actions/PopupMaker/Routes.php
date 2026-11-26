@@ -4,8 +4,8 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-use BitApps\Integrations\Actions\PopupMaker\PopupMakerController;
+use BitApps\Integrations\Actions\PopupMaker\PopupMakerHelper;
 use BitApps\Integrations\Core\Util\Route;
 
-Route::post('refresh_popup_maker_popups', [PopupMakerController::class, 'refreshPopups']);
-Route::post('refresh_popup_maker_themes', [PopupMakerController::class, 'refreshThemes']);
+Route::post('refresh_popup_maker_popups', [PopupMakerHelper::class, 'refreshPopups']);
+Route::post('refresh_popup_maker_themes', [PopupMakerHelper::class, 'refreshThemes']);

@@ -3,6 +3,7 @@
 namespace BitApps\Integrations\Flow;
 
 use BitApps\Integrations\Config;
+use BitApps\Integrations\Core\Integration\ActionResolver;
 use BitApps\Integrations\Core\Integration\IntegrationHandler;
 use BitApps\Integrations\Core\Util\Capabilities;
 use BitApps\Integrations\Core\Util\Common;
@@ -15,10 +16,6 @@ use BitApps\Integrations\Log\LogHandler;
 use BitApps\Integrations\Triggers\TriggerController;
 use WP_Error;
 
-/**
- * Provides details of available integration and helps to
- * execute available flows
- */
 final class Flow
 {
     public function triggers()
@@ -549,6 +546,8 @@ final class Flow
                     }
                     // Execute through the wrapper so field data is captured for re-execution.
                     IntegrationHandler::executeWithCapture($flowData, $data, $handler);
+                } elseif (!empty($integrationName) && isset($flowData->id)) {
+                    self::logUnresolvedAction($flowData->id, $integrationName, $data);
                 }
             }
         }
@@ -559,19 +558,30 @@ final class Flow
      *
      * @param string $name Name of Action
      *
-     * @return bool
+     * @return false|string
      */
     protected static function isActionExists($name)
     {
-        if (class_exists("BitApps\\Integrations\\Actions\\{$name}\\{$name}Controller")) {
-            return "BitApps\\Integrations\\Actions\\{$name}\\{$name}Controller";
-        } elseif (class_exists("BitApps\\BTCBI_PRO\\Actions\\{$name}\\{$name}Controller")) {
-            return "BitApps\\BTCBI_PRO\\Actions\\{$name}\\{$name}Controller";
-        } elseif (class_exists("BitApps\\IntegrationsPro\\Actions\\{$name}\\{$name}Controller")) {
-            return "BitApps\\IntegrationsPro\\Actions\\{$name}\\{$name}Controller";
+        return ActionResolver::resolve($name);
+    }
+
+    private static function logUnresolvedAction($flowId, $integrationName, $data)
+    {
+        $throttleKey = Config::withPrefix("unresolved_action_{$flowId}");
+
+        if (get_transient($throttleKey)) {
+            return;
         }
 
-        return false;
+        set_transient($throttleKey, 1, HOUR_IN_SECONDS);
+
+        LogHandler::save(
+            $flowId,
+            ['type' => 'dispatch', 'type_name' => $integrationName],
+            'error',
+            new WP_Error('ACTION_NOT_FOUND', __('Integration handler not found', 'bit-integrations')),
+            $data
+        );
     }
 
     /**
@@ -679,7 +689,7 @@ final class Flow
      * This MUST stay the single normalizer used by both the capability gate
      * (isCustomActionFlowDetails) and the dispatcher (execute). When the gate compared the
      * raw string while execute() normalized it, "Custom Action" and "customAction" both
-     * skipped the administrator check yet still resolved to CustomActionController — which
+     * skipped the administrator check yet still resolved to CustomActionAction — which
      * include()s a caller-supplied path.
      *
      * @param null|string $type

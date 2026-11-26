@@ -1,0 +1,84 @@
+<?php
+
+namespace BitApps\Integrations\Actions\Memberpress;
+
+use BitApps\Integrations\Core\Util\Post;
+use MeprOptions;
+
+class MemberpressHelper
+{
+    public static function pluginActive($option = null)
+    {
+        if (is_plugin_active('memberpress/memberpress.php')) {
+            return $option === 'get_name' ? 'memberpress/memberpress.php' : true;
+        }
+
+        return false;
+    }
+
+    public function getAllMembership($label = null, $option_code = 'MPPRODUCT', $args = [])
+    {
+        include_once ABSPATH . 'wp-admin/includes/plugin.php';
+        if (self::pluginActive()) {
+            $posts = Post::all([
+                'post_type'      => 'memberpressproduct',
+                'posts_per_page' => 999,
+                'post_status'    => 'publish',
+                // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query -- MemberPress products are filtered by period metadata.
+                'meta_query' => [
+                    'relation' => 'OR',
+                    [
+                        'key'     => '_mepr_product_period_type',
+                        'value'   => 'lifetime',
+                        'compare' => '!=',
+                    ],
+                    [
+                        'key'     => '_mepr_product_period_type',
+                        'value'   => 'lifetime',
+                        'compare' => '=',
+                    ],
+                ],
+            ]);
+
+            foreach ($posts as $post) {
+                $allMembership[] = [
+                    'membershipId'    => $post->ID,
+                    'membershipTitle' => $post->post_title,
+                ];
+            }
+            wp_send_json_success($allMembership, 200);
+        }
+        // translators: %s: Plugin name
+        // translators: %s: Placeholder value
+        wp_send_json_error(wp_sprintf(__('%s must be activated!', 'bit-integrations'), 'Memberpress'));
+    }
+
+    public static function allPaymentGateway()
+    {
+        if (!self::pluginActive()) {
+            // translators: %s: Plugin name
+            // translators: %s: Placeholder value
+            wp_send_json_error(wp_sprintf(__('%s must be activated!', 'bit-integrations'), 'Memberpress'));
+        }
+        $mepr_options = MeprOptions::fetch();
+
+        $pms = array_keys($mepr_options->integrations);
+        $initGateways[] = [
+            'paymentId'    => 'manual',
+            'paymentTitle' => 'Manual',
+        ];
+        $gateways = [];
+
+        if (!empty($pms) && \is_array($pms)) {
+            foreach ($pms as $pm_id) {
+                $obj = $mepr_options->payment_method($pm_id);
+                $gateways[] = [
+                    'paymentId'    => $obj->id,
+                    'paymentTitle' => $obj->name,
+                ];
+            }
+        }
+        $finalGateways = array_merge($gateways, $initGateways);
+        wp_send_json_success($finalGateways, 200);
+    }
+}

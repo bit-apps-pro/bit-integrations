@@ -4,12 +4,12 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-use BitApps\Integrations\Actions\Hubspot\HubspotController;
+use BitApps\Integrations\Actions\Hubspot\HubspotHelper;
 use BitApps\Integrations\Core\Util\Route;
 
-Route::post('getFields', [HubspotController::class, 'getFields']);
-Route::post('hubspot_pipeline', [HubspotController::class, 'getAllPipelines']);
-Route::post('hubspot_owners', [HubspotController::class, 'getAllOwners']);
-Route::post('hubspot_contacts', [HubspotController::class, 'getAllContacts']);
-Route::post('hubspot_company', [HubspotController::class, 'getAllCompany']);
-Route::post('hubspot_industry', [HubspotController::class, 'getAllIndustry']);
+Route::post('getFields', [HubspotHelper::class, 'getFields']);
+Route::post('hubspot_pipeline', [HubspotHelper::class, 'getAllPipelines']);
+Route::post('hubspot_owners', [HubspotHelper::class, 'getAllOwners']);
+Route::post('hubspot_contacts', [HubspotHelper::class, 'getAllContacts']);
+Route::post('hubspot_company', [HubspotHelper::class, 'getAllCompany']);
+Route::post('hubspot_industry', [HubspotHelper::class, 'getAllIndustry']);

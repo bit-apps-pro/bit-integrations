@@ -4,8 +4,8 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-use BitApps\Integrations\Actions\Bento\BentoController;
+use BitApps\Integrations\Actions\Bento\BentoHelper;
 use BitApps\Integrations\Core\Util\Route;
 
-Route::post('bento_get_fields', [BentoController::class, 'getAllFields']);
-Route::post('bento_get_all_tags', [BentoController::class, 'getAlTags']);
+Route::post('bento_get_fields', [BentoHelper::class, 'getAllFields']);
+Route::post('bento_get_all_tags', [BentoHelper::class, 'getAlTags']);

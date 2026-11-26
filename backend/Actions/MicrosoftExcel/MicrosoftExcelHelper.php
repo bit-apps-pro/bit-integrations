@@ -133,7 +133,7 @@ class MicrosoftExcelHelper
         $row = method_exists($connection, 'getConnection') ? $connection->getConnection() : null;
         $appSlug = strtolower((string) preg_replace('/[^a-z0-9]/i', '', (string) ApiResponse::getValue($row, 'app_slug')));
 
-        return $appSlug === strtolower(MicrosoftExcelController::$authConfig['slug']);
+        return $appSlug === strtolower(MicrosoftExcelAction::$authConfig['slug']);
     }
 
     private static function requireClient($queryParams): ApiClient

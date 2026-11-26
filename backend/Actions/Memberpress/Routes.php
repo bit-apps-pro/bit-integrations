@@ -4,8 +4,8 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-use BitApps\Integrations\Actions\Memberpress\MemberpressController;
+use BitApps\Integrations\Actions\Memberpress\MemberpressHelper;
 use BitApps\Integrations\Core\Util\Route;
 
-Route::post('fetch_all_membership', [MemberpressController::class, 'getAllMembership']);
-Route::post('fetch_all_payment_gateway', [MemberpressController::class, 'allPaymentGateway']);
+Route::post('fetch_all_membership', [MemberpressHelper::class, 'getAllMembership']);
+Route::post('fetch_all_payment_gateway', [MemberpressHelper::class, 'allPaymentGateway']);
