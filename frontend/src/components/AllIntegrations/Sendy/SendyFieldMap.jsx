@@ -4,20 +4,17 @@ import MtInput from '../../Utilities/MtInput'
 import { addFieldMap, delFieldMap, handleFieldMapping } from './IntegrationHelpers'
 import { SmartTagField } from '../../../Utils/StaticData/SmartTagField'
 import { $appConfigState } from '../../../GlobalStates'
-import { generateMappedField } from './SendyCommonFunc'
+import { mappableFields } from './SendyCommonFunc'
+import { getAction, supportsCustomFields } from './staticData'
 import TagifyInput from '../../Utilities/TagifyInput'
 import { handleCustomValue } from '../IntegrationHelpers/IntegrationHelpers'
 import CustomFieldKey from '../../Utilities/CustomFieldKey'
 
 export default function SendyFieldMap({ i, formFields, field, sendyConf, setSendyConf }) {
-  if (sendyConf?.field_map?.length === 1 && field.sendyField === '') {
-    const newConf = { ...sendyConf }
-    const tmp = generateMappedField(newConf)
-    newConf.field_map = tmp
-    setSendyConf(newConf)
-  }
-  const requiredFlds = sendyConf?.subscriberFields.filter(fld => fld.required === true) || []
-  const nonRequiredFlds = sendyConf?.subscriberFields.filter(fld => fld.required === false) || []
+  const actionFields = mappableFields(sendyConf)
+  const requiredFlds = actionFields.filter(fld => fld.required === true)
+  const nonRequiredFlds = actionFields.filter(fld => fld.required === false)
+  const allowCustomFieldKey = supportsCustomFields.includes(getAction(sendyConf))
 
   const btcbi = useRecoilValue($appConfigState)
   const { isPro } = btcbi
@@ -84,7 +81,9 @@ export default function SendyFieldMap({ i, formFields, field, sendyConf, setSend
                 </option>
               ))
             )}
-            <option value="customFieldKey">{__('Custom Field', 'bit-integrations')}</option>
+            {allowCustomFieldKey && (
+              <option value="customFieldKey">{__('Custom Field', 'bit-integrations')}</option>
+            )}
           </select>
           {field.sendyField === 'customFieldKey' && (
             <CustomFieldKey

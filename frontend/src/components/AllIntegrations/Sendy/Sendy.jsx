@@ -10,7 +10,8 @@ import { saveIntegConfig } from '../IntegrationHelpers/IntegrationHelpers'
 import SendyAuthorization from './SendyAuthorization'
 import IntegrationStepThree from '../IntegrationHelpers/IntegrationStepThree'
 import SendyIntegLayout from './SendyIntegLayout'
-import { checkMappedFields, handleInput } from './SendyCommonFunc'
+import { getConfigError, handleInput } from './SendyCommonFunc'
+import { DEFAULT_ACTION } from './staticData'
 
 function Sendy({ formFields, setFlow, flow, allIntegURL }) {
   const navigate = useNavigate()
@@ -18,18 +19,13 @@ function Sendy({ formFields, setFlow, flow, allIntegURL }) {
   const [step, setstep] = useState(1)
   const [snack, setSnackbar] = useState({ show: false })
 
-  const subscriberFields = [
-    { key: 'email', label: __('Email', 'bit-integrations'), required: true },
-    { key: 'name', label: __('Name', 'bit-integrations'), required: false }
-  ]
-
   const [sendyConf, setSendyConf] = useState({
     name: 'Sendy',
     type: 'Sendy',
     api_key: '',
     sendy_url: '',
-    field_map: [{ formField: '', sendyField: '' }],
-    subscriberFields,
+    mainAction: DEFAULT_ACTION,
+    field_map: [{ formField: '', sendyField: 'email' }],
     actions: {}
   })
 
@@ -52,9 +48,9 @@ function Sendy({ formFields, setFlow, flow, allIntegURL }) {
       document.getElementById('btcd-settings-wrp').scrollTop = 0
     }, 300)
 
-    if (!checkMappedFields(sendyConf)) {
-      // setSnackbar({ show: true, msg: __('Please map mandatory fields', 'bit-integrations') })
-      toast.error(__('Please map mandatory fields', 'bit-integrations'))
+    const configError = getConfigError(sendyConf)
+    if (configError) {
+      toast.error(configError)
       return
     }
     sendyConf.field_map.length > 0 && setstep(pageNo)

@@ -1,7 +1,9 @@
 /* eslint-disable no-else-return */
+import { create } from 'mutative'
 import toast from 'react-hot-toast'
-import { __ } from '../../../Utils/i18nwrap'
+import { __, sprintf } from '../../../Utils/i18nwrap'
 import bitsFetch from '../../../Utils/bitsFetch'
+import { DEFAULT_ACTION, fieldsByAction, getAction, needsCampaignLists, needsList } from './staticData'
 
 const buildAuthRequestParams = conf =>
   conf?.connection_id
@@ -21,14 +23,16 @@ export const handleInput = (
   error,
   setError
 ) => {
-  const newConf = { ...sendyConf }
-  const { name } = e.target
-  if (e.target.value !== '') {
-    newConf[name] = e.target.value
-  } else {
-    delete newConf[name]
-  }
-  setSendyConf({ ...newConf })
+  const { name, value } = e.target
+  setSendyConf(prevConf =>
+    create(prevConf, draftConf => {
+      if (value !== '') {
+        draftConf[name] = value
+      } else {
+        delete draftConf[name]
+      }
+    })
+  )
 }
 
 export const getAllBrand = (sendyConf, setSendyConf, setIsLoading, setSnackbar) => {
@@ -37,23 +41,27 @@ export const getAllBrand = (sendyConf, setSendyConf, setIsLoading, setSnackbar) 
 
   const loadPostTypes = bitsFetch(queryParams, 'get_all_brands').then(result => {
     if (result && result.success) {
-      const newConf = { ...sendyConf }
-      if (!newConf.default) newConf.default = {}
-      if (result.data) {
-        newConf.default.brandList = result.data
-      }
-      setSendyConf({ ...newConf })
+      setSendyConf(prevConf =>
+        create(prevConf, draftConf => {
+          if (!draftConf.default) draftConf.default = {}
+          draftConf.default.brandList = result.data || []
+        })
+      )
       setIsLoading(false)
-      return __('BrandList refreshed successfully', 'bit-integrations')
+      return __('Brands refreshed successfully', 'bit-integrations')
     } else {
       setIsLoading(false)
-      return __('BrandList refresh failed. please try again', 'bit-integrations')
+      throw new Error(
+        typeof result?.data === 'string'
+          ? result.data
+          : __('Brands did not load. Try again.', 'bit-integrations')
+      )
     }
   })
   toast.promise(loadPostTypes, {
     success: data => data,
-    error: __('Error Occurred', 'bit-integrations'),
-    loading: __('Loading Brand...')
+    error: err => err?.message || __('Error Occurred', 'bit-integrations'),
+    loading: __('Loading Brands...', 'bit-integrations')
   })
 }
 
@@ -66,44 +74,70 @@ export const getAllList = (sendyConf, setSendyConf, setIsLoading, setSnackbar) =
 
   const loadPostTypes = bitsFetch(queryParams, 'get_all_lists_from_sendy').then(result => {
     if (result && result.success) {
-      const newConf = { ...sendyConf }
-      if (!newConf.default) newConf.default = {}
-      if (result.data) {
-        newConf.default.lists = result.data
-      }
-      setSendyConf({ ...newConf })
+      setSendyConf(prevConf =>
+        create(prevConf, draftConf => {
+          if (!draftConf.default) draftConf.default = {}
+          draftConf.default.lists = result.data || []
+        })
+      )
       setIsLoading(false)
       return __('Lists refreshed successfully', 'bit-integrations')
     } else {
       setIsLoading(false)
-      return __('Lists refresh failed. please try again', 'bit-integrations')
+      throw new Error(
+        typeof result?.data === 'string'
+          ? result.data
+          : __('Lists did not load. Try again.', 'bit-integrations')
+      )
     }
   })
   toast.promise(loadPostTypes, {
     success: data => data,
-    error: __('Error Occurred', 'bit-integrations'),
-    loading: __('Loading Lists...')
+    error: err => err?.message || __('Error Occurred', 'bit-integrations'),
+    loading: __('Loading Lists...', 'bit-integrations')
   })
 }
 
+export const mappableFields = sendyConf => fieldsByAction[getAction(sendyConf)] || []
+
 export const generateMappedField = sendyConf => {
-  const requiredFlds = sendyConf?.subscriberFields.filter(fld => fld.required === true)
+  const requiredFlds = mappableFields(sendyConf).filter(fld => fld.required === true)
   return requiredFlds.length > 0
     ? requiredFlds.map(field => ({ formField: '', sendyField: field.key }))
     : [{ formField: '', sendyField: '' }]
 }
 
-export const checkMappedFields = sendyConf => {
-  const mappedFields = sendyConf?.field_map
-    ? sendyConf.field_map.filter(
-        mappedField =>
-          !mappedField.formField ||
-          !mappedField.sendyField ||
-          (!mappedField.formField === 'custom' && !mappedField.customValue)
-      )
-    : []
-  if (mappedFields.length > 0) {
-    return false
+export const getConfigError = sendyConf => {
+  const incompleteRow = (sendyConf?.field_map || []).some(
+    mappedField =>
+      !mappedField.formField ||
+      !mappedField.sendyField ||
+      (mappedField.formField === 'custom' && !mappedField.customValue)
+  )
+  if (incompleteRow) {
+    return __(
+      'A field map row is not complete. Select both fields or delete the row.',
+      'bit-integrations'
+    )
   }
-  return true
+
+  const mappedKeys = (sendyConf?.field_map || []).map(mappedField => mappedField.sendyField)
+  const missingField = mappableFields(sendyConf).find(
+    fld => fld.required && !mappedKeys.includes(fld.key)
+  )
+  if (missingField) {
+    return sprintf(__('%s is required. Map a field to it.', 'bit-integrations'), missingField.label)
+  }
+
+  const action = getAction(sendyConf)
+
+  if (needsList.includes(action) && action !== DEFAULT_ACTION && !sendyConf?.list_id) {
+    return __('List is required. Select a list.', 'bit-integrations')
+  }
+
+  if (needsCampaignLists.includes(action) && !sendyConf?.brand_id) {
+    return __('Brand is required. Select a brand.', 'bit-integrations')
+  }
+
+  return ''
 }

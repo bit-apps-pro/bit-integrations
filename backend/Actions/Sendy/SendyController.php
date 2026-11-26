@@ -25,7 +25,7 @@ class SendyController
     public function getAllBrands($queryParams)
     {
         $apiKey = $queryParams->api_key ?: ($queryParams->value ?? '');
-        $sendy_url = $queryParams->sendy_url ?? '';
+        $sendy_url = rtrim($queryParams->sendy_url ?? '', '/');
 
         if (
             empty($apiKey)
@@ -45,6 +45,8 @@ class SendyController
             'api_key' => $apiKey
         ];
         $apiResponse = HttpHelper::post($apiEndpoint, $requestsParams, $authorizationHeader);
+        static::sendErrorIfNotObject($apiResponse, __('Sendy did not return brands. Check the Sendy URL and API key.', 'bit-integrations'));
+
         $response = [];
         foreach ($apiResponse as $list) {
             $response[] = (object) [
@@ -58,7 +60,7 @@ class SendyController
     public function getAllLists($queryParams)
     {
         $apiKey = $queryParams->api_key ?: ($queryParams->value ?? '');
-        $sendy_url = $queryParams->sendy_url ?? '';
+        $sendy_url = rtrim($queryParams->sendy_url ?? '', '/');
 
         if (
             empty($apiKey)
@@ -72,7 +74,12 @@ class SendyController
                 400
             );
         }
-        $brand_id = $queryParams->brand_id;
+        $brand_id = $queryParams->brand_id ?? '';
+
+        if (empty($brand_id)) {
+            wp_send_json_error(__('Brand is required. Select a brand.', 'bit-integrations'), 400);
+        }
+
         $apiEndpoint = "{$sendy_url}/api/lists/get-lists.php";
         $authorizationHeader['Accept'] = 'application/json';
         $requestsParams = [
@@ -80,6 +87,7 @@ class SendyController
             'brand_id' => $brand_id
         ];
         $apiResponse = HttpHelper::post($apiEndpoint, $requestsParams, $authorizationHeader);
+        static::sendErrorIfNotObject($apiResponse, __('Sendy did not return lists. Check the brand, Sendy URL and API key.', 'bit-integrations'));
 
         $response = [];
         foreach ($apiResponse as $list) {
@@ -120,5 +128,18 @@ class SendyController
         }
 
         return $hubspotResponse;
+    }
+
+    private static function sendErrorIfNotObject($apiResponse, $fallbackMessage)
+    {
+        if (\is_object($apiResponse)) {
+            return;
+        }
+
+        if (is_wp_error($apiResponse)) {
+            wp_send_json_error($apiResponse->get_error_message(), 400);
+        }
+
+        wp_send_json_error(\is_string($apiResponse) && trim($apiResponse) !== '' ? wp_strip_all_tags($apiResponse) : $fallbackMessage, 400);
     }
 }

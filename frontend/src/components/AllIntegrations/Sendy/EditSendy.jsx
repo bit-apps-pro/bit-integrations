@@ -12,7 +12,7 @@ import SetEditIntegComponents from '../IntegrationHelpers/SetEditIntegComponents
 import EditWebhookInteg from '../EditWebhookInteg'
 import { saveActionConf } from '../IntegrationHelpers/IntegrationHelpers'
 import IntegrationStepThree from '../IntegrationHelpers/IntegrationStepThree'
-import { checkMappedFields, handleInput } from './SendyCommonFunc'
+import { getConfigError, handleInput } from './SendyCommonFunc'
 import SendyIntegLayout from './SendyIntegLayout'
 
 function EditSendy({ allIntegURL }) {
@@ -25,8 +25,9 @@ function EditSendy({ allIntegURL }) {
   const formField = useRecoilValue($formFields)
 
   const saveConfig = () => {
-    if (!checkMappedFields(sendyConf)) {
-      setSnackbar({ show: true, msg: __('Please map mandatory fields', 'bit-integrations') })
+    const configError = getConfigError(sendyConf)
+    if (configError) {
+      setSnackbar({ show: true, msg: configError })
       return
     }
     saveActionConf({
