@@ -72,7 +72,7 @@ final class GoogleDriveHelper
 
         return [
             'access_token' => $accessToken,
-            'api_key'      => (string) Hooks::apply(Config::withPrefix('google_file_picker_api_key'), OneClickApp::setting($oneClickApp, 'filePickerApiKey'), $oneClickApp),
+            'api_key'      => (string) Hooks::apply(Config::withPrefix('google_picker_api_key'), OneClickApp::setting($oneClickApp, 'pickerApiKey'), $oneClickApp),
             'app_id'       => $appId,
         ];
     }
