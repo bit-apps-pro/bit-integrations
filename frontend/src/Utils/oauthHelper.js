@@ -2,7 +2,6 @@ import { APP_CONFIG } from '../config/app'
 import { oauthConnectionExchange } from './connectionApi'
 
 const OAUTH_CHANNEL = 'bit_integrations_oauth_share'
-const USER_CLOSED_CONFIRM_MS = 1500
 const PKCE_CHARSET = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-._~'
 
 const base64UrlEncode = bytes => {
@@ -102,10 +101,7 @@ const extractChannelFromState = stateValue => {
 // attempt, which is exactly the property the window name needs.
 const getPopupName = channelKey => `bit_oauth_${channelKey || randomToken(8)}`
 
-export const openOauthPopup = (
-  authUrl,
-  { channelKey = '', includeLegacyFallback = false, closedGraceMs = 0 } = {}
-) =>
+export const openOauthPopup = (authUrl, { channelKey = '', includeLegacyFallback = false } = {}) =>
   new Promise(resolve => {
     const popup = window.open(authUrl, getPopupName(channelKey), 'width=500,height=650,toolbar=off')
 
@@ -149,21 +145,12 @@ export const openOauthPopup = (
       }
     }
 
-    let closedSince = 0
-    let focusedSince = 0
     const closeTimer = setInterval(() => {
-      if (resolved || !popup.closed) return
-
-      const now = Date.now()
-      closedSince ||= now
-      focusedSince = document.hasFocus() ? focusedSince || now : 0
-      const userReturned =
-        focusedSince > 0 && now - focusedSince >= Math.min(closedGraceMs, USER_CLOSED_CONFIRM_MS)
-      if (now - closedSince < closedGraceMs && !userReturned) return
-
-      resolved = true
-      cleanup()
-      resolve({ error: 'popup_closed' })
+      if (popup.closed && !resolved) {
+        resolved = true
+        cleanup()
+        resolve({ error: 'popup_closed' })
+      }
     }, 800)
   })
 

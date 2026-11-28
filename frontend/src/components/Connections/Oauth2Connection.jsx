@@ -25,8 +25,6 @@ import CopyText from '../Utilities/CopyText'
 import SecretInput from '../Utilities/SecretInput'
 import { APP_CONFIG } from '../../config/app'
 
-const ONE_CLICK_POPUP_CLOSED_GRACE_MS = 10 * 60 * 1000
-
 const ERROR_TEXT_STYLE = { color: 'red', fontSize: '15px' }
 
 const GRANT_TYPES = Object.freeze({
@@ -164,7 +162,7 @@ export default function Oauth2Connection({
   }, [extraFields, formData, isOneClick])
 
   const requestAuthCode = useCallback(
-    async ({ clientId, authRedirectUri, codeChallenge, scopeOverride, closedGraceMs }) => {
+    async ({ clientId, authRedirectUri, codeChallenge, scopeOverride }) => {
       const declaredQueryParams = {
         ...(resolvedAuthCodeEndpoint?.queryParams || {}),
         ...(scopeOverride ? { scope: scopeOverride } : {})
@@ -192,8 +190,7 @@ export default function Oauth2Connection({
       })
       const popupResponse = await openOauthPopup(authUrl, {
         channelKey: oauthChannelKey,
-        includeLegacyFallback: true,
-        closedGraceMs
+        includeLegacyFallback: true
       })
 
       if (popupResponse?.error) {
