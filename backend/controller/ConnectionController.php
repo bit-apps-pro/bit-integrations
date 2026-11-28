@@ -169,6 +169,10 @@ final class ConnectionController
                 $payload['auth_type']
             );
 
+        if ($existingId > 0 && !$this->isSameOneClickApp($existingId, $payload['auth_details'] ?? [])) {
+            $existingId = 0;
+        }
+
         if ($existingId > 0) {
             $updated = $this->persist($payload, $existingId);
 
@@ -790,6 +794,19 @@ final class ConnectionController
      * ways (an API key and an OAuth2 grant), and those rows hold different credential
      * shapes. Matching on (app_slug, account_name) alone would let one overwrite the other.
      */
+    private function isSameOneClickApp(int $connectionId, array $authDetails): bool
+    {
+        $rows = (new ConnectionModel())->get(['auth_details'], ['id' => $connectionId], 1);
+
+        if (is_wp_error($rows) || empty($rows[0])) {
+            return false;
+        }
+
+        $storedApp = (string) ($this->normalizeArray($rows[0]->auth_details ?? null)['one_click_app'] ?? '');
+
+        return $storedApp === (string) ($authDetails['one_click_app'] ?? '');
+    }
+
     private function findExistingIdForAccount(string $appSlug, string $accountName, string $authType = ''): int
     {
         if ($appSlug === '' || $accountName === '' || $authType === '') {
