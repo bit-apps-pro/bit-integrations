@@ -139,7 +139,7 @@ export default function GoogleSheetIntegLayout({
                   placeholder={__('Select Spreadsheet', 'bit-integrations')}
                   isOneClick={Boolean(sheetConf?.one_click_app)}
                   browse={(parentId, location) => browseSheetDrive(sheetConf, parentId, location)}
-                  findInDrive={onOpen => findSpreadsheetInDrive(sheetConf, onOpen)}
+                  findInDrive={(onOpen, folder) => findSpreadsheetInDrive(sheetConf, onOpen, folder)}
                   onSelect={file =>
                     selectSpreadsheet(file, formID, sheetConf, setSheetConf, setIsLoading, setSnackbar)
                   }

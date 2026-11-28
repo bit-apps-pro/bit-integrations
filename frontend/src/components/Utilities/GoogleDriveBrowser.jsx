@@ -168,7 +168,10 @@ export default function GoogleDriveBrowser({
   const handleFindInDrive = async () => {
     setIsBusy(true)
     try {
-      const item = await findInDrive(() => setIsBusy(false))
+      const item = await findInDrive(
+        () => setIsBusy(false),
+        isVirtualRoot || current.id === ROOT.id ? undefined : { id: current.id, name: current.name }
+      )
       if (item) select(item)
     } catch (error) {
       toast.error(

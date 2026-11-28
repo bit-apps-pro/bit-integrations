@@ -72,11 +72,12 @@ export const browseSheetDrive = (sheetConf, parentId, location) =>
     'gsheet_browse_drive'
   )
 
-export const findSpreadsheetInDrive = (sheetConf, onOpen) =>
+export const findSpreadsheetInDrive = (sheetConf, onOpen, folder) =>
   pickFromGoogleDrive({
     connectionId: sheetConf.connection_id,
     kind: 'spreadsheet',
     title: __('Choose a spreadsheet', 'bit-integrations'),
+    folder,
     onOpen
   })
 

@@ -7,9 +7,16 @@ const PICKER_MAX = { width: 1051, height: 650 }
 const PICKER_MIN = { width: 566, height: 350 }
 const VIEWPORT_GUTTER = 48
 
+const GOOGLE_REGIONAL_LOCALES = ['en-GB', 'es-419', 'fr-CA', 'pt-BR', 'pt-PT', 'zh-CN', 'zh-HK', 'zh-TW']
+
 let pickerReady
 
 const fitToViewport = (max, min, viewport) => Math.max(min, Math.min(max, viewport - VIEWPORT_GUTTER))
+
+const pickerLocale = () => {
+  const lang = (document.documentElement.lang || '').replace('_', '-')
+  return GOOGLE_REGIONAL_LOCALES.includes(lang) ? lang : lang.split('-')[0]
+}
 
 const loadGapi = () =>
   new Promise((resolve, reject) => {
@@ -45,21 +52,33 @@ const loadPicker = () => {
 }
 
 const FOLDER_MIME_TYPE = 'application/vnd.google-apps.folder'
+const SPREADSHEET_MIME_TYPE = 'application/vnd.google-apps.spreadsheet'
 
-const buildView = (picker, kind, { sharedDrives = false } = {}) => {
-  const view =
-    kind === 'folder'
-      ? new picker.DocsView(picker.ViewId.FOLDERS)
-          .setSelectFolderEnabled(true)
-          .setMimeTypes(FOLDER_MIME_TYPE)
-      : new picker.DocsView(picker.ViewId.SPREADSHEETS).setSelectFolderEnabled(false)
+const buildView = (picker, kind, { sharedDrives = false, folder } = {}) => {
+  const isFolderKind = kind === 'folder'
+  const mimeType = isFolderKind ? FOLDER_MIME_TYPE : SPREADSHEET_MIME_TYPE
+  let view
 
-  view.setIncludeFolders(true).setMode(picker.DocsViewMode.LIST)
+  // setParent is only honored on the generic DOCS view, and it pins the view to that
+  // folder, so the browsed folder gets its own tab beside the full My Drive view.
+  if (folder) {
+    view = new picker.DocsView(picker.ViewId.DOCS).setParent(folder.id).setLabel(folder.name)
+  } else if (isFolderKind) {
+    view = new picker.DocsView(picker.ViewId.FOLDERS)
+  } else {
+    view = new picker.DocsView(picker.ViewId.SPREADSHEETS)
+  }
+
+  view
+    .setMimeTypes(mimeType)
+    .setSelectFolderEnabled(isFolderKind)
+    .setIncludeFolders(true)
+    .setMode(picker.DocsViewMode.LIST)
 
   return sharedDrives ? view.setEnableDrives(true) : view
 }
 
-export const pickFromGoogleDrive = async ({ connectionId, kind, title, onOpen }) => {
+export const pickFromGoogleDrive = async ({ connectionId, kind, title, folder, onOpen }) => {
   const pickerRes = await getGooglePicker(connectionId)
 
   if (!pickerRes?.success) {
@@ -76,8 +95,17 @@ export const pickFromGoogleDrive = async ({ connectionId, kind, title, onOpen })
   const { picker } = window.google
 
   return new Promise(resolve => {
+    let pickerInstance
+    const finish = item => {
+      resolve(item)
+      setTimeout(() => pickerInstance?.dispose())
+    }
     const builder = new picker.PickerBuilder()
     if (apiKey) builder.setDeveloperKey(apiKey)
+    const locale = pickerLocale()
+    if (locale) builder.setLocale(locale)
+
+    if (folder) builder.addView(buildView(picker, kind, { folder }))
 
     builder
       .addView(buildView(picker, kind))
@@ -94,13 +122,14 @@ export const pickFromGoogleDrive = async ({ connectionId, kind, title, onOpen })
       .setCallback(data => {
         if (data.action === picker.Action.PICKED) {
           const [doc] = data.docs || []
-          resolve(doc ? { id: doc.id, name: doc.name } : null)
+          finish(doc ? { id: doc.id, name: doc.name } : null)
         } else if (data.action === picker.Action.CANCEL) {
-          resolve(null)
+          finish(null)
         }
       })
-      .build()
-      .setVisible(true)
+
+    pickerInstance = builder.build()
+    pickerInstance.setVisible(true)
 
     onOpen?.()
   })

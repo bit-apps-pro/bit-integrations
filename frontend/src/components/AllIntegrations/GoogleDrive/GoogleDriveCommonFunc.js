@@ -64,10 +64,11 @@ export const browseDriveFolders = (googleDriveConf, parentId, location) =>
 export const createDriveFolder = (googleDriveConf, parentId, name) =>
   bitsFetch({ ...buildAuthRequestParams(googleDriveConf), parentId, name }, 'googleDrive_create_folder')
 
-export const findFolderInDrive = (googleDriveConf, onOpen) =>
+export const findFolderInDrive = (googleDriveConf, onOpen, folder) =>
   pickFromGoogleDrive({
     connectionId: googleDriveConf.connection_id,
     kind: 'folder',
     title: __('Choose a folder', 'bit-integrations'),
+    folder,
     onOpen
   })

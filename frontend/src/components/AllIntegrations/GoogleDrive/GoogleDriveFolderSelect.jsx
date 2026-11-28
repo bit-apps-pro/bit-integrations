@@ -17,7 +17,7 @@ export default function GoogleDriveFolderSelect({ value, onChange, googleDriveCo
       isOneClick={Boolean(googleDriveConf?.one_click_app)}
       browse={(parentId, location) => browseDriveFolders(googleDriveConf, parentId, location)}
       createFolder={(parentId, name) => createDriveFolder(googleDriveConf, parentId, name)}
-      findInDrive={onOpen => findFolderInDrive(googleDriveConf, onOpen)}
+      findInDrive={(onOpen, folder) => findFolderInDrive(googleDriveConf, onOpen, folder)}
       onSelect={onChange}
     />
   )
