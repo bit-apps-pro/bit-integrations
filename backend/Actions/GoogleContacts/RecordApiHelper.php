@@ -35,7 +35,6 @@ class RecordApiHelper
             return null;
         }
 
-        // Google serves searchContacts from a cache that a request with an empty query warms up.
         HttpHelper::get(self::API_BASE . '/people:searchContacts', ['query' => '', 'readMask' => self::SEARCH_READ_MASK], $this->headers());
 
         $response = HttpHelper::get(self::API_BASE . '/people:searchContacts', ['query' => $query, 'readMask' => self::SEARCH_READ_MASK], $this->headers());

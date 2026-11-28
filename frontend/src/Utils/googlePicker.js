@@ -59,8 +59,6 @@ const buildView = (picker, kind, { sharedDrives = false, folder } = {}) => {
   const mimeType = isFolderKind ? FOLDER_MIME_TYPE : SPREADSHEET_MIME_TYPE
   let view
 
-  // setParent is only honored on the generic DOCS view, and it pins the view to that
-  // folder, so the browsed folder gets its own tab beside the full My Drive view.
   if (folder) {
     view = new picker.DocsView(picker.ViewId.DOCS).setParent(folder.id).setLabel(folder.name)
   } else if (isFolderKind) {

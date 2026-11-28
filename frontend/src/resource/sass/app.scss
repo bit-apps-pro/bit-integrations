@@ -4085,8 +4085,6 @@ $menu-bleed: 40px;
   }
 }
 
-// Google's Picker injects its backdrop and frame into our document with inline
-// page-coordinate positions, so !important is the only way to restyle them.
 .picker-dialog-bg {
   position: fixed !important;
   inset: 0 !important;
