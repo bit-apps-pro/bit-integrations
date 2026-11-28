@@ -232,18 +232,9 @@ export default function Oauth2Connection({
       clientId,
       authRedirectUri,
       codeChallenge: codeVerifier ? await generateCodeChallengeS256(codeVerifier) : undefined,
-      scopeOverride: oneClickScope,
-      closedGraceMs: ONE_CLICK_POPUP_CLOSED_GRACE_MS
+      scopeOverride: oneClickScope
     })
-    const tokenRes = await oneClickExchange({
-      app: oneClickApp,
-      code,
-      code_verifier: codeVerifier,
-      token_url: resolvedTokenEndpoint?.url,
-      body_params: resolvedTokenEndpoint?.bodyParams || {},
-      headers: resolvedTokenEndpoint?.headers || {},
-      client_authentication: clientAuthentication
-    })
+    const tokenRes = await oneClickExchange({ app: oneClickApp, code, code_verifier: codeVerifier })
 
     if (!tokenRes?.success) {
       throw new Error(
@@ -254,14 +245,7 @@ export default function Oauth2Connection({
     }
 
     return tokenRes?.data?.data || {}
-  }, [
-    clientAuthentication,
-    grantType,
-    oneClickApp,
-    oneClickScope,
-    requestAuthCode,
-    resolvedTokenEndpoint
-  ])
+  }, [grantType, oneClickApp, oneClickScope, requestAuthCode])
 
   const handleAuthorizationCodeFlow = useCallback(async () => {
     const isPkce = grantType === GRANT_TYPES.AUTHORIZATION_CODE_PKCE

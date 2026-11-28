@@ -560,49 +560,22 @@ final class ConnectionController
 
         $app = $this->sanitizeScalar($request->app ?? '');
         $code = (string) ($request->code ?? '');
-        $tokenUrl = esc_url_raw((string) ($request->token_url ?? ''));
 
         if ($app === '' || $code === '') {
             wp_send_json_error(__('Requested parameter is empty', 'bit-integrations'), 400);
         }
 
-        if (!$this->isPublicHttpsUrl($tokenUrl)) {
-            wp_send_json_error(__('Token URL must be a public https endpoint', 'bit-integrations'), 400);
-        }
-
         $clientId = OneClickApp::clientId($app);
-        $clientSecret = OneClickApp::clientSecret($app, $clientId);
 
-        if ($clientSecret === '') {
+        if ($clientId === '') {
             wp_send_json_error(__('Could not reach the Bit Apps authorization server. Please try again.', 'bit-integrations'), 400);
         }
 
-        $body = array_merge(
-            $this->normalizeArray($request->body_params ?? []),
-            [
-                'grant_type'   => 'authorization_code',
-                'code'         => $code,
-                'redirect_uri' => OneClickApp::redirectUri(),
-            ]
-        );
-        $codeVerifier = $this->sanitizeScalar($request->code_verifier ?? '');
-
-        if ($codeVerifier !== '') {
-            $body['code_verifier'] = $codeVerifier;
-        }
-
-        $headers = array_change_key_case($this->normalizeHeaders($request->headers ?? []), CASE_LOWER);
-        $headers += ['content-type' => 'application/x-www-form-urlencoded', 'accept' => 'application/json'];
-
-        if ($this->sanitizeScalar($request->client_authentication ?? '') === 'header') {
-            $headers['authorization'] = 'Basic ' . base64_encode($clientId . ':' . $clientSecret);
-        } else {
-            $body['client_id'] = $clientId;
-            $body['client_secret'] = $clientSecret;
-        }
-
-        $isJson = strpos(strtolower($headers['content-type']), 'application/json') !== false;
-        $response = HttpHelper::post($tokenUrl, $isJson ? wp_json_encode($body) : $body, $headers);
+        $response = OneClickApp::requestToken($app, array_filter([
+            'grant_type'    => 'authorization_code',
+            'code'          => $code,
+            'code_verifier' => $this->sanitizeScalar($request->code_verifier ?? ''),
+        ]));
 
         if (is_wp_error($response)) {
             wp_send_json_error($response->get_error_message(), 400);

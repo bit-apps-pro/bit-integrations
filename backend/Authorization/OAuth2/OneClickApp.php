@@ -10,6 +10,7 @@ use BitApps\Integrations\Config;
 use BitApps\Integrations\Core\Util\Common;
 use BitApps\Integrations\Core\Util\Hooks;
 use BitApps\Integrations\Core\Util\HttpHelper;
+use WP_Error;
 
 final class OneClickApp
 {
@@ -18,8 +19,6 @@ final class OneClickApp
     private const CLIENT_INFO_CACHE_TTL = 12 * HOUR_IN_SECONDS;
 
     private const HTTP_TIMEOUT = 10;
-
-    private static $secrets = [];
 
     public static function brokerUrl(): string
     {
@@ -43,32 +42,24 @@ final class OneClickApp
         return self::clientInfo($app)['settings'][$key] ?? '';
     }
 
-    public static function clientSecret(string $app, string $clientId): string
+    public static function requestToken(string $app, array $params, int $timeout = self::HTTP_TIMEOUT)
     {
-        if ($app === '' || $clientId === '') {
-            return '';
-        }
-
-        $memoKey = $app . '|' . $clientId;
-
-        if (isset(self::$secrets[$memoKey])) {
-            return self::$secrets[$memoKey];
+        if (!preg_match('/^[A-Za-z0-9_-]+$/', $app)) {
+            return new WP_Error(Config::withPrefix('one_click_unknown_app'), __('Unknown one-click app', 'bit-integrations'));
         }
 
         $response = HttpHelper::post(
-            self::brokerUrl() . 'apps/secret',
-            wp_json_encode(['client_id' => $clientId, 'platform' => $app]),
-            ['Content-Type' => 'application/json'],
-            ['timeout' => self::HTTP_TIMEOUT]
+            self::brokerUrl() . 'apps/' . $app . '/token',
+            wp_json_encode($params),
+            ['Content-Type' => 'application/json', 'Accept' => 'application/json'],
+            ['timeout' => $timeout]
         );
 
-        if (is_wp_error($response) || !\is_object($response) || empty($response->clientSecret)) {
-            return '';
+        if (is_wp_error($response) || !\is_object($response)) {
+            return new WP_Error(Config::withPrefix('one_click_broker_unreachable'), __('Could not reach the Bit Apps authorization server. Please try again.', 'bit-integrations'));
         }
 
-        self::$secrets[$memoKey] = (string) $response->clientSecret;
-
-        return self::$secrets[$memoKey];
+        return $response;
     }
 
     private static function clientInfo(string $app): array

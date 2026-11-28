@@ -429,49 +429,17 @@ class OAuth2Authorization extends AbstractBaseAuthorization
 
     private function performTokenRefresh(array $authDetails): ?array
     {
-        $url = $this->refreshTokenUrl ?: ($authDetails['refresh_token_url'] ?? ($authDetails['refreshTokenUrl'] ?? ''));
+        $response = empty($authDetails['one_click_app'])
+            ? $this->requestProviderRefresh($authDetails)
+            : OneClickApp::requestToken(
+                (string) $authDetails['one_click_app'],
+                ['grant_type' => 'refresh_token', 'refresh_token' => (string) ($authDetails['refresh_token'] ?? '')],
+                self::REFRESH_HTTP_TIMEOUT
+            );
 
-        if (empty($url)) {
-            $this->setLastError(__('Refresh token endpoint is missing', 'bit-integrations'));
-
+        if ($response === null) {
             return null;
         }
-
-        // This POST carries client_id/client_secret and the refresh_token. HttpHelper
-        // already screens the resolved IP, but it accepts http:// — so without this a
-        // connection row whose refresh_token_url is cleartext would replay the client
-        // credentials in the open on every refresh. Same rule the connection endpoints
-        // apply at save time, so a URL rejected there cannot slip back in here.
-        if (!Common::isPublicHttpsUrl((string) $url)) {
-            $this->setLastError(__('Refresh token endpoint must be a public https URL', 'bit-integrations'));
-
-            return null;
-        }
-
-        if (!empty($authDetails['one_click_app']) && $this->resolveClientCredentials($authDetails)[1] === '') {
-            $this->setLastError(__('Could not reach the Bit Apps authorization server. Please try again.', 'bit-integrations'));
-
-            return null;
-        }
-
-        $body = $this->bodyParams ?: $this->buildRefreshBody($authDetails);
-        $headers = $this->buildRefreshHeaders($authDetails);
-
-        // Bound explicitly: HttpHelper's 30s default would outlive both the waiters
-        // blocking on this refresh and the stale-lock window (see the constants above).
-        $requestOptions = ['timeout' => self::REFRESH_HTTP_TIMEOUT];
-
-        // ssl_verify is read from the stored connection, but only ever to tighten —
-        // never to disable verification on a request carrying the client_secret.
-        // A site owner needing an on-prem exception uses the filter above.
-        $sslVerify = AuthDataCodec::normalizeSslVerify($authDetails['ssl_verify'] ?? null);
-
-        if ($sslVerify === true) {
-            $requestOptions['sslverify'] = true;
-            $requestOptions['verify'] = true;
-        }
-
-        $response = HttpHelper::post($url, $body, $headers, $requestOptions);
 
         if (is_wp_error($response)) {
             $this->setLastError($response->get_error_message(), $response);
@@ -539,6 +507,47 @@ class OAuth2Authorization extends AbstractBaseAuthorization
         return $authDetails;
     }
 
+    private function requestProviderRefresh(array $authDetails)
+    {
+        $url = $this->refreshTokenUrl ?: ($authDetails['refresh_token_url'] ?? ($authDetails['refreshTokenUrl'] ?? ''));
+
+        if (empty($url)) {
+            $this->setLastError(__('Refresh token endpoint is missing', 'bit-integrations'));
+
+            return null;
+        }
+
+        // This POST carries client_id/client_secret and the refresh_token. HttpHelper
+        // already screens the resolved IP, but it accepts http:// — so without this a
+        // connection row whose refresh_token_url is cleartext would replay the client
+        // credentials in the open on every refresh. Same rule the connection endpoints
+        // apply at save time, so a URL rejected there cannot slip back in here.
+        if (!Common::isPublicHttpsUrl((string) $url)) {
+            $this->setLastError(__('Refresh token endpoint must be a public https URL', 'bit-integrations'));
+
+            return null;
+        }
+
+        $body = $this->bodyParams ?: $this->buildRefreshBody($authDetails);
+        $headers = $this->buildRefreshHeaders($authDetails);
+
+        // Bound explicitly: HttpHelper's 30s default would outlive both the waiters
+        // blocking on this refresh and the stale-lock window (see the constants above).
+        $requestOptions = ['timeout' => self::REFRESH_HTTP_TIMEOUT];
+
+        // ssl_verify is read from the stored connection, but only ever to tighten —
+        // never to disable verification on a request carrying the client_secret.
+        // A site owner needing an on-prem exception uses the filter above.
+        $sslVerify = AuthDataCodec::normalizeSslVerify($authDetails['ssl_verify'] ?? null);
+
+        if ($sslVerify === true) {
+            $requestOptions['sslverify'] = true;
+            $requestOptions['verify'] = true;
+        }
+
+        return HttpHelper::post($url, $body, $headers, $requestOptions);
+    }
+
     private function buildRefreshBody(array $authDetails): array
     {
         $grantType = $authDetails['grant_type'] ?? 'authorization_code';
@@ -575,11 +584,6 @@ class OAuth2Authorization extends AbstractBaseAuthorization
     {
         $clientId = (string) ($authDetails['client_id'] ?? ($authDetails['clientId'] ?? ''));
         $clientSecret = (string) ($authDetails['client_secret'] ?? ($authDetails['clientSecret'] ?? ''));
-        $oneClickApp = (string) ($authDetails['one_click_app'] ?? '');
-
-        if ($oneClickApp !== '' && $clientSecret === '') {
-            $clientSecret = OneClickApp::clientSecret($oneClickApp, $clientId);
-        }
 
         return [$clientId, $clientSecret];
     }
