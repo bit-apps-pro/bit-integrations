@@ -29,7 +29,8 @@ const loadGapi = () =>
     script.src = GAPI_SRC
     script.async = true
     script.onload = () => resolve(window.gapi)
-    script.onerror = () => reject(new Error('Google API script failed to load'))
+    script.onerror = () =>
+      reject(new Error(__('Google Drive could not be opened. Please try again.', 'bit-integrations')))
     document.head.appendChild(script)
   })
 

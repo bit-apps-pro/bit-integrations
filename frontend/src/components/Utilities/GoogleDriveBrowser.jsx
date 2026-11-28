@@ -70,6 +70,7 @@ export default function GoogleDriveBrowser({
   const newFolderInputRef = useRef(null)
   const browseRef = useRef(browse)
   browseRef.current = browse
+  const loadRequestRef = useRef(0)
 
   const current = trail[trail.length - 1]
   const isVirtualRoot = current.id === ''
@@ -78,9 +79,11 @@ export default function GoogleDriveBrowser({
 
   const loadItems = useCallback(
     async folderId => {
+      const requestId = ++loadRequestRef.current
       setIsLoading(true)
       setLoadError('')
       const res = await browseRef.current(folderId, location)
+      if (requestId !== loadRequestRef.current) return
       setIsLoading(false)
 
       if (!res?.success) {
