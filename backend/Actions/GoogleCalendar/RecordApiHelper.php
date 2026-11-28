@@ -27,17 +27,42 @@ class RecordApiHelper
         $this->calendarId = $calendarId;
     }
 
+    private const RENAMED_TIME_ZONES = [
+        'Asia/Choibalsan'   => 'Asia/Ulaanbaatar',
+        'CST6CDT'           => 'America/Chicago',
+        'EST5EDT'           => 'America/New_York',
+        'Europe/Kiev'       => 'Europe/Kyiv',
+        'Europe/Uzhgorod'   => 'Europe/Kyiv',
+        'Europe/Zaporozhye' => 'Europe/Kyiv',
+        'MST7MDT'           => 'America/Denver',
+        'PST8PDT'           => 'America/Los_Angeles',
+        'Pacific/Enderbury' => 'Pacific/Kanton',
+    ];
+
     private static function resolveTimeZone($timeZone): string
     {
-        $identifiers = timezone_identifiers_list();
-
-        foreach ([$timeZone, wp_timezone_string()] as $candidate) {
-            if (\is_string($candidate) && \in_array($candidate, $identifiers, true)) {
+        foreach ([$timeZone, self::RENAMED_TIME_ZONES[$timeZone] ?? null, wp_timezone_string()] as $candidate) {
+            if (self::isNamedTimeZone($candidate)) {
                 return $candidate;
             }
         }
 
         return 'UTC';
+    }
+
+    private static function isNamedTimeZone($timeZone): bool
+    {
+        if (!\is_string($timeZone) || $timeZone === '' || preg_match('/^[+-]\d/', $timeZone)) {
+            return false;
+        }
+
+        try {
+            new DateTimeZone($timeZone);
+
+            return true;
+        } catch (Exception $e) {
+            return false;
+        }
     }
 
     public function insertEvent($data)
