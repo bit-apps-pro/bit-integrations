@@ -12,6 +12,8 @@ export default function GoogleContactsAuthorization({
 }) {
   const note = `
     <h4>${__('Google Contacts OAuth setup', 'bit-integrations')}</h4>
+    <p>${__('Click Authorize and sign in to Google. No API credentials are needed.', 'bit-integrations')}</p>
+    <h4>${__('Using your own Google Cloud app', 'bit-integrations')}</h4>
     <ul>
       <li>${__('Visit', 'bit-integrations')} <a href="https://console.developers.google.com/apis/credentials" target="_blank" rel="noreferrer">${__('Google API Console', 'bit-integrations')}</a> ${__('to get your credentials.', 'bit-integrations')}</li>
       <li>${__('Create OAuth client in Google API Console.', 'bit-integrations')}</li>
@@ -31,6 +33,17 @@ export default function GoogleContactsAuthorization({
       tutorialLinks={tutorialLinks?.googleContacts || {}}
       authDetails={{
         authType: AUTH_TYPES.OAUTH2,
+        oneClick: {
+          app: 'google',
+          scope: 'https://www.googleapis.com/auth/contacts',
+          label: __('One-click: sign in with Google', 'bit-integrations'),
+          hint: __('No setup needed. Sign in and allow access to your contacts.', 'bit-integrations'),
+          customLabel: __('Your own Google app', 'bit-integrations'),
+          customHint: __(
+            'Needs an OAuth client from your Google Cloud project with the People API enabled.',
+            'bit-integrations'
+          )
+        },
         grantType: 'authorization_code',
         clientAuthentication: 'body',
         authCodeEndpoint: {

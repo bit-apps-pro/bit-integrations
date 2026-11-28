@@ -10,6 +10,7 @@ use BitApps\Integrations\Core\Util\HttpHelper;
 use BitApps\Integrations\Log\LogHandler;
 use DateTime;
 use DateTimeZone;
+use Exception;
 
 class RecordApiHelper
 {
@@ -22,8 +23,46 @@ class RecordApiHelper
     public function __construct($token, $calendarId, $timeZone)
     {
         $this->token = $token;
-        $this->timeZone = $timeZone;
+        $this->timeZone = self::resolveTimeZone($timeZone);
         $this->calendarId = $calendarId;
+    }
+
+    private const RENAMED_TIME_ZONES = [
+        'Asia/Choibalsan'   => 'Asia/Ulaanbaatar',
+        'CST6CDT'           => 'America/Chicago',
+        'EST5EDT'           => 'America/New_York',
+        'Europe/Kiev'       => 'Europe/Kyiv',
+        'Europe/Uzhgorod'   => 'Europe/Kyiv',
+        'Europe/Zaporozhye' => 'Europe/Kyiv',
+        'MST7MDT'           => 'America/Denver',
+        'PST8PDT'           => 'America/Los_Angeles',
+        'Pacific/Enderbury' => 'Pacific/Kanton',
+    ];
+
+    private static function resolveTimeZone($timeZone): string
+    {
+        foreach ([$timeZone, self::RENAMED_TIME_ZONES[$timeZone] ?? null, wp_timezone_string()] as $candidate) {
+            if (self::isNamedTimeZone($candidate)) {
+                return $candidate;
+            }
+        }
+
+        return 'UTC';
+    }
+
+    private static function isNamedTimeZone($timeZone): bool
+    {
+        if (!\is_string($timeZone) || $timeZone === '' || preg_match('/^[+-]\d/', $timeZone)) {
+            return false;
+        }
+
+        try {
+            new DateTimeZone($timeZone);
+
+            return true;
+        } catch (Exception $e) {
+            return false;
+        }
     }
 
     public function insertEvent($data)
@@ -122,7 +161,19 @@ class RecordApiHelper
 
         $reminderFieldMap = [...array_filter($reminderFieldMap, fn ($value) => !empty($value->method) && !empty($value->minutes))];
 
-        $apiResponse = $this->handleInsert($fieldData, $reminderFieldMap, $actions);
+        try {
+            $apiResponse = $this->handleInsert($fieldData, $reminderFieldMap, $actions);
+        } catch (Exception $e) {
+            LogHandler::save($integrationId, wp_json_encode(['type' => 'record', 'type_name' => 'insert']), 'error', $e->getMessage());
+
+            return;
+        }
+
+        if (\is_string($apiResponse)) {
+            LogHandler::save($integrationId, wp_json_encode(['type' => 'record', 'type_name' => 'insert']), 'validation', $apiResponse);
+
+            return;
+        }
 
         if (!isset($apiResponse->id)) {
             if (isset($apiResponse->error)) {

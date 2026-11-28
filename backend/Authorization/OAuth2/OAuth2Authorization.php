@@ -429,43 +429,17 @@ class OAuth2Authorization extends AbstractBaseAuthorization
 
     private function performTokenRefresh(array $authDetails): ?array
     {
-        $url = $this->refreshTokenUrl ?: ($authDetails['refresh_token_url'] ?? ($authDetails['refreshTokenUrl'] ?? ''));
+        $response = empty($authDetails['one_click_app'])
+            ? $this->requestProviderRefresh($authDetails)
+            : OneClickApp::requestToken(
+                (string) $authDetails['one_click_app'],
+                ['grant_type' => 'refresh_token', 'refresh_token' => (string) ($authDetails['refresh_token'] ?? '')],
+                self::REFRESH_HTTP_TIMEOUT
+            );
 
-        if (empty($url)) {
-            $this->setLastError(__('Refresh token endpoint is missing', 'bit-integrations'));
-
+        if ($response === null) {
             return null;
         }
-
-        // This POST carries client_id/client_secret and the refresh_token. HttpHelper
-        // already screens the resolved IP, but it accepts http:// — so without this a
-        // connection row whose refresh_token_url is cleartext would replay the client
-        // credentials in the open on every refresh. Same rule the connection endpoints
-        // apply at save time, so a URL rejected there cannot slip back in here.
-        if (!Common::isPublicHttpsUrl((string) $url)) {
-            $this->setLastError(__('Refresh token endpoint must be a public https URL', 'bit-integrations'));
-
-            return null;
-        }
-
-        $body = $this->bodyParams ?: $this->buildRefreshBody($authDetails);
-        $headers = $this->buildRefreshHeaders($authDetails);
-
-        // Bound explicitly: HttpHelper's 30s default would outlive both the waiters
-        // blocking on this refresh and the stale-lock window (see the constants above).
-        $requestOptions = ['timeout' => self::REFRESH_HTTP_TIMEOUT];
-
-        // ssl_verify is read from the stored connection, but only ever to tighten —
-        // never to disable verification on a request carrying the client_secret.
-        // A site owner needing an on-prem exception uses the filter above.
-        $sslVerify = AuthDataCodec::normalizeSslVerify($authDetails['ssl_verify'] ?? null);
-
-        if ($sslVerify === true) {
-            $requestOptions['sslverify'] = true;
-            $requestOptions['verify'] = true;
-        }
-
-        $response = HttpHelper::post($url, $body, $headers, $requestOptions);
 
         if (is_wp_error($response)) {
             $this->setLastError($response->get_error_message(), $response);
@@ -533,6 +507,47 @@ class OAuth2Authorization extends AbstractBaseAuthorization
         return $authDetails;
     }
 
+    private function requestProviderRefresh(array $authDetails)
+    {
+        $url = $this->refreshTokenUrl ?: ($authDetails['refresh_token_url'] ?? ($authDetails['refreshTokenUrl'] ?? ''));
+
+        if (empty($url)) {
+            $this->setLastError(__('Refresh token endpoint is missing', 'bit-integrations'));
+
+            return null;
+        }
+
+        // This POST carries client_id/client_secret and the refresh_token. HttpHelper
+        // already screens the resolved IP, but it accepts http:// — so without this a
+        // connection row whose refresh_token_url is cleartext would replay the client
+        // credentials in the open on every refresh. Same rule the connection endpoints
+        // apply at save time, so a URL rejected there cannot slip back in here.
+        if (!Common::isPublicHttpsUrl((string) $url)) {
+            $this->setLastError(__('Refresh token endpoint must be a public https URL', 'bit-integrations'));
+
+            return null;
+        }
+
+        $body = $this->bodyParams ?: $this->buildRefreshBody($authDetails);
+        $headers = $this->buildRefreshHeaders($authDetails);
+
+        // Bound explicitly: HttpHelper's 30s default would outlive both the waiters
+        // blocking on this refresh and the stale-lock window (see the constants above).
+        $requestOptions = ['timeout' => self::REFRESH_HTTP_TIMEOUT];
+
+        // ssl_verify is read from the stored connection, but only ever to tighten —
+        // never to disable verification on a request carrying the client_secret.
+        // A site owner needing an on-prem exception uses the filter above.
+        $sslVerify = AuthDataCodec::normalizeSslVerify($authDetails['ssl_verify'] ?? null);
+
+        if ($sslVerify === true) {
+            $requestOptions['sslverify'] = true;
+            $requestOptions['verify'] = true;
+        }
+
+        return HttpHelper::post($url, $body, $headers, $requestOptions);
+    }
+
     private function buildRefreshBody(array $authDetails): array
     {
         $grantType = $authDetails['grant_type'] ?? 'authorization_code';
@@ -543,8 +558,7 @@ class OAuth2Authorization extends AbstractBaseAuthorization
         // Body auth is the default. Header auth puts client credentials in Authorization
         // header instead — see buildRefreshHeaders.
         if ($this->resolveClientAuthMode($authDetails) !== 'header') {
-            $body['client_id'] = $authDetails['client_id'] ?? ($authDetails['clientId'] ?? '');
-            $body['client_secret'] = $authDetails['client_secret'] ?? ($authDetails['clientSecret'] ?? '');
+            [$body['client_id'], $body['client_secret']] = $this->resolveClientCredentials($authDetails);
         }
 
         if (!empty($authDetails['refresh_token'])) {
@@ -559,12 +573,19 @@ class OAuth2Authorization extends AbstractBaseAuthorization
         $headers = ['Content-Type' => 'application/x-www-form-urlencoded'];
 
         if ($this->resolveClientAuthMode($authDetails) === 'header') {
-            $clientId = $authDetails['client_id'] ?? ($authDetails['clientId'] ?? '');
-            $clientSecret = $authDetails['client_secret'] ?? ($authDetails['clientSecret'] ?? '');
+            [$clientId, $clientSecret] = $this->resolveClientCredentials($authDetails);
             $headers['Authorization'] = 'Basic ' . base64_encode($clientId . ':' . $clientSecret);
         }
 
         return $headers;
+    }
+
+    private function resolveClientCredentials(array $authDetails): array
+    {
+        $clientId = (string) ($authDetails['client_id'] ?? ($authDetails['clientId'] ?? ''));
+        $clientSecret = (string) ($authDetails['client_secret'] ?? ($authDetails['clientSecret'] ?? ''));
+
+        return [$clientId, $clientSecret];
     }
 
     private function resolveClientAuthMode(array $authDetails): string

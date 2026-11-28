@@ -12,13 +12,13 @@ export default function GoogleDriveIntegLayout({
 }) {
   return (
     <>
-      <div className="mt-5">
-        <b className="wdt-100">{__('Field Map', 'bit-integrations')}</b>
+      <div className="mt-5 btcd-section-head">
+        <b>{__('Field Map', 'bit-integrations')}</b>
         <button
           onClick={() => getAllGoogleDriveFolders(flowID, googleDriveConf, setGoogleDriveConf)}
           className="icn-btn sh-sm ml-2 mr-2 tooltip"
           style={{
-            '--tooltip-txt': `'${__('Fetch All GoogleDrive Folders', 'bit-integrations')}'`
+            '--tooltip-txt': `'${__('Refresh folders', 'bit-integrations')}'`
           }}
           type="button">
           &#x21BB;
@@ -30,7 +30,7 @@ export default function GoogleDriveIntegLayout({
           <b>{__('File Input', 'bit-integrations')}</b>
         </div>
         <div className="txt-dp">
-          <b>{__('GoogleDrive Folder', 'bit-integrations')}</b>
+          <b>{__('Google Drive Folder', 'bit-integrations')}</b>
         </div>
       </div>
 
@@ -54,9 +54,7 @@ export default function GoogleDriveIntegLayout({
           +
         </button>
       </div>
-      <br />
-      <br />
-      <div className="mt-4">
+      <div className="mt-5">
         <b className="wdt-100">{__('Utilities', 'bit-integrations')}</b>
       </div>
       <div className="btcd-hr mt-1" />

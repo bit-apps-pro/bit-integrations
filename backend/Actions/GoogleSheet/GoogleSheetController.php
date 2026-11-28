@@ -10,6 +10,7 @@ if (! defined('ABSPATH')) {
     exit;
 }
 use BitApps\Integrations\Authorization\AuthorizationType;
+use BitApps\Integrations\Core\Util\GoogleDriveHelper;
 use BitApps\Integrations\Core\Util\HttpHelper;
 use BitApps\Integrations\Flow\FlowController;
 use WP_Error;
@@ -128,6 +129,29 @@ class GoogleSheetController
             GoogleSheetController::saveRefreshedToken($queryParams->id, $response['tokenDetails'], $response);
         }
         wp_send_json_success($response, 200);
+    }
+
+    public static function browseDriveAjaxHelper($queryParams)
+    {
+        $client = GoogleDriveHelper::client($queryParams->connection_id ?? 0, self::$authConfig['slug']);
+
+        if ($client === null) {
+            wp_send_json_error(__('Select a Google Sheets connection first', 'bit-integrations'), 400);
+        }
+
+        [$error, $items] = GoogleDriveHelper::listItems(
+            $client,
+            (string) ($queryParams->parentId ?? ''),
+            (string) ($queryParams->location ?? 'my-drive'),
+            [GoogleDriveHelper::FOLDER_MIME_TYPE, GoogleDriveHelper::SPREADSHEET_MIME_TYPE],
+            empty($queryParams->includeAccessible) ? null : GoogleDriveHelper::SPREADSHEET_MIME_TYPE
+        );
+
+        if ($error !== null) {
+            wp_send_json_error($error, 400);
+        }
+
+        wp_send_json_success(['items' => $items]);
     }
 
     public static function refreshWorksheetsAjaxHelper($queryParams)

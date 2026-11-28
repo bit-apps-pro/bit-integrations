@@ -8,6 +8,7 @@ if (!defined('ABSPATH')) {
 
 use BitApps\Integrations\Authorization\AuthorizationFactory;
 use BitApps\Integrations\Authorization\AuthorizationType;
+use BitApps\Integrations\Authorization\OAuth2\OneClickApp;
 use BitApps\Integrations\Authorization\Support\AuthDataCodec;
 use BitApps\Integrations\Config;
 use BitApps\Integrations\Core\Database\ConnectionModel;
@@ -15,6 +16,7 @@ use BitApps\Integrations\Core\Database\FlowModel;
 use BitApps\Integrations\Core\Http\ConnectionTestApi;
 use BitApps\Integrations\Core\Util\Capabilities;
 use BitApps\Integrations\Core\Util\Common;
+use BitApps\Integrations\Core\Util\GoogleDriveHelper;
 use BitApps\Integrations\Core\Util\Helper;
 use BitApps\Integrations\Core\Util\Hooks;
 use BitApps\Integrations\Core\Util\HttpHelper;
@@ -166,6 +168,10 @@ final class ConnectionController
                 $payload['account_name'],
                 $payload['auth_type']
             );
+
+        if ($existingId > 0 && !$this->isSameOneClickApp($existingId, $payload['auth_details'] ?? [])) {
+            $existingId = 0;
+        }
 
         if ($existingId > 0) {
             $updated = $this->persist($payload, $existingId);
@@ -523,6 +529,95 @@ final class ConnectionController
         wp_send_json_success(['data' => $decoded]);
     }
 
+    public function oneClickConfig($request)
+    {
+        $this->guard();
+
+        $clientId = OneClickApp::clientId($this->sanitizeScalar($request->app ?? ''));
+
+        if ($clientId === '') {
+            wp_send_json_error(__('Could not reach the Bit Apps authorization server. Please try again.', 'bit-integrations'), 400);
+        }
+
+        wp_send_json_success([
+            'client_id'    => $clientId,
+            'redirect_uri' => OneClickApp::redirectUri(),
+        ]);
+    }
+
+    public function googlePicker($request)
+    {
+        $this->guard();
+
+        $picker = GoogleDriveHelper::pickerConfig($this->normalizeId($request));
+
+        if ($picker === null) {
+            wp_send_json_error(__('Google Drive picker is not available right now', 'bit-integrations'), 400);
+        }
+
+        wp_send_json_success($picker);
+    }
+
+    public function oneClickExchange($request)
+    {
+        $this->guard();
+
+        $app = $this->sanitizeScalar($request->app ?? '');
+        $code = (string) ($request->code ?? '');
+
+        if ($app === '' || $code === '') {
+            wp_send_json_error(__('Requested parameter is empty', 'bit-integrations'), 400);
+        }
+
+        $clientId = OneClickApp::clientId($app);
+
+        if ($clientId === '') {
+            wp_send_json_error(__('Could not reach the Bit Apps authorization server. Please try again.', 'bit-integrations'), 400);
+        }
+
+        $response = OneClickApp::requestToken($app, array_filter([
+            'grant_type'    => 'authorization_code',
+            'code'          => $code,
+            'code_verifier' => $this->sanitizeScalar($request->code_verifier ?? ''),
+        ]));
+
+        if (is_wp_error($response)) {
+            wp_send_json_error($response->get_error_message(), 400);
+        }
+
+        $responseCode = (int) HttpHelper::$responseCode;
+        $decoded = $this->decodeTokenResponse($response);
+
+        if ($responseCode < 200 || $responseCode >= 300 || isset($decoded['error']) || empty($decoded['access_token'])) {
+            wp_send_json_error(
+                [
+                    'message' => $decoded['error_description'] ?? (\is_string($decoded['error'] ?? null) ? $decoded['error'] : __('Token exchange failed', 'bit-integrations')),
+                    'status'  => $responseCode,
+                ],
+                400
+            );
+        }
+
+        $decoded['client_id'] = $clientId;
+
+        wp_send_json_success(['data' => $decoded]);
+    }
+
+    private function decodeTokenResponse($response): array
+    {
+        if (\is_object($response)) {
+            return Helper::jsonEncodeDecode($response) ?: [];
+        }
+
+        if (\is_string($response)) {
+            parse_str($response, $parsed);
+
+            return $parsed;
+        }
+
+        return (array) $response;
+    }
+
     private function buildPayload($request, bool $isUpdate)
     {
         $appSlug = $this->sanitizeScalar($request->app_slug ?? '');
@@ -699,6 +794,19 @@ final class ConnectionController
      * ways (an API key and an OAuth2 grant), and those rows hold different credential
      * shapes. Matching on (app_slug, account_name) alone would let one overwrite the other.
      */
+    private function isSameOneClickApp(int $connectionId, array $authDetails): bool
+    {
+        $rows = (new ConnectionModel())->get(['auth_details'], ['id' => $connectionId], 1);
+
+        if (is_wp_error($rows) || empty($rows[0])) {
+            return false;
+        }
+
+        $storedApp = (string) ($this->normalizeArray($rows[0]->auth_details ?? null)['one_click_app'] ?? '');
+
+        return $storedApp === (string) ($authDetails['one_click_app'] ?? '');
+    }
+
     private function findExistingIdForAccount(string $appSlug, string $accountName, string $authType = ''): int
     {
         if ($appSlug === '' || $accountName === '' || $authType === '') {
@@ -765,6 +873,12 @@ final class ConnectionController
             'created_at'      => $row->created_at ?? null,
             'updated_at'      => $row->updated_at ?? null,
         ];
+
+        $oneClickApp = (string) ($this->normalizeArray($row->auth_details ?? null)['one_click_app'] ?? '');
+
+        if ($oneClickApp !== '') {
+            $payload['one_click_app'] = $oneClickApp;
+        }
 
         if (\is_array($linkedIntegrations)) {
             $payload['linked_integrations'] = $linkedIntegrations;

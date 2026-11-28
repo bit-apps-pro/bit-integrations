@@ -4,6 +4,7 @@ namespace BitApps\Integrations\Actions\GoogleDrive;
 
 use BitApps\Integrations\Actions\GoogleDrive\RecordApiHelper as GoogleDriveRecordApiHelper;
 use BitApps\Integrations\Authorization\AuthorizationType;
+use BitApps\Integrations\Core\Util\GoogleDriveHelper;
 use BitApps\Integrations\Core\Util\HttpHelper;
 use BitApps\Integrations\Flow\FlowController;
 use BitApps\Integrations\Log\LogHandler;
@@ -30,34 +31,7 @@ class GoogleDriveController
 
     public static function getAllFolders($queryParams)
     {
-        $tokenDetails = self::normalizeConnectionToken($queryParams->tokenDetails ?? null);
-        $clientId = $queryParams->clientId ?? '';
-        $clientSecret = $queryParams->clientSecret ?? '';
-        $flowID = $queryParams->flowID ?? null;
-        $isConnectionAuth = !empty($queryParams->connection_id);
-
-        if (empty($tokenDetails->access_token) && !empty($queryParams->accessToken)) {
-            $tokenDetails->access_token = $queryParams->accessToken;
-            $tokenDetails->refresh_token = $queryParams->refreshToken ?? '';
-        }
-
-        if (empty($tokenDetails->access_token)) {
-            wp_send_json_error(__('Requested parameter is empty', 'bit-integrations'), 400);
-        }
-
-        $oldToken = $tokenDetails->access_token;
-
-        if (!$isConnectionAuth) {
-            $tokenDetails = self::tokenExpiryCheck($tokenDetails, $clientId, $clientSecret);
-
-            if (empty($tokenDetails) || empty($tokenDetails->access_token)) {
-                wp_send_json_error(__('Authorization failed', 'bit-integrations'), 400);
-            }
-
-            if (!empty($flowID) && $tokenDetails->access_token !== $oldToken) {
-                self::saveRefreshedToken($flowID, $tokenDetails);
-            }
-        }
+        $tokenDetails = self::resolveRequestToken($queryParams);
 
         $folders = self::getGoogleDriveFoldersList($tokenDetails->access_token);
 
@@ -79,6 +53,44 @@ class GoogleDriveController
         wp_send_json_success($response, 200);
     }
 
+    public static function browseFolders($queryParams)
+    {
+        [$error, $folders] = GoogleDriveHelper::listItems(
+            self::requireClient($queryParams),
+            (string) ($queryParams->parentId ?? ''),
+            (string) ($queryParams->location ?? 'my-drive'),
+            [GoogleDriveHelper::FOLDER_MIME_TYPE],
+            empty($queryParams->includeAccessible) ? null : GoogleDriveHelper::FOLDER_MIME_TYPE
+        );
+
+        if ($error !== null) {
+            wp_send_json_error($error, 400);
+        }
+
+        wp_send_json_success(['items' => $folders]);
+    }
+
+    public static function createFolder($queryParams)
+    {
+        $name = sanitize_text_field((string) ($queryParams->name ?? ''));
+
+        if ($name === '' || mb_strlen($name) > 255) {
+            wp_send_json_error(__('Folder name is required', 'bit-integrations'), 400);
+        }
+
+        [$error, $folder] = GoogleDriveHelper::createFolder(
+            self::requireClient($queryParams),
+            (string) ($queryParams->parentId ?? 'root'),
+            $name
+        );
+
+        if ($error !== null) {
+            wp_send_json_error($error, 400);
+        }
+
+        wp_send_json_success(['folder' => $folder]);
+    }
+
     public static function getGoogleDriveFoldersList($token)
     {
         $headers = [
@@ -86,7 +98,7 @@ class GoogleDriveController
             'Content-Type'  => 'application/json;',
             'Authorization' => 'Bearer ' . $token,
         ];
-        $apiEndpoint = "https://www.googleapis.com/drive/v3/files?q=mimeType='application/vnd.google-apps.folder' and trashed=false&fields=files(id,name,parents)";
+        $apiEndpoint = "https://www.googleapis.com/drive/v3/files?q=mimeType='application/vnd.google-apps.folder' and trashed=false&fields=files(id,name,parents)&pageSize=1000&supportsAllDrives=true&includeItemsFromAllDrives=true";
         $apiResponse = HttpHelper::get($apiEndpoint, [], $headers);
         if (is_wp_error($apiResponse) || !empty($apiResponse->error)) {
             return false;
@@ -228,6 +240,49 @@ class GoogleDriveController
         $token->generated_at = $token->generates_on;
 
         return $token;
+    }
+
+    private static function requireClient($queryParams)
+    {
+        $client = GoogleDriveHelper::client($queryParams->connection_id ?? 0, self::$authConfig['slug']);
+
+        if ($client === null) {
+            wp_send_json_error(__('Select a Google Drive connection first', 'bit-integrations'), 400);
+        }
+
+        return $client;
+    }
+
+    private static function resolveRequestToken($queryParams)
+    {
+        $tokenDetails = self::normalizeConnectionToken($queryParams->tokenDetails ?? null);
+        $flowID = $queryParams->flowID ?? null;
+
+        if (empty($tokenDetails->access_token) && !empty($queryParams->accessToken)) {
+            $tokenDetails->access_token = $queryParams->accessToken;
+            $tokenDetails->refresh_token = $queryParams->refreshToken ?? '';
+        }
+
+        if (empty($tokenDetails->access_token)) {
+            wp_send_json_error(__('Requested parameter is empty', 'bit-integrations'), 400);
+        }
+
+        if (!empty($queryParams->connection_id)) {
+            return $tokenDetails;
+        }
+
+        $oldToken = $tokenDetails->access_token;
+        $tokenDetails = self::tokenExpiryCheck($tokenDetails, $queryParams->clientId ?? '', $queryParams->clientSecret ?? '');
+
+        if (empty($tokenDetails) || empty($tokenDetails->access_token)) {
+            wp_send_json_error(__('Authorization failed', 'bit-integrations'), 400);
+        }
+
+        if (!empty($flowID) && $tokenDetails->access_token !== $oldToken) {
+            self::saveRefreshedToken($flowID, $tokenDetails);
+        }
+
+        return $tokenDetails;
     }
 
     private static function normalizeConnectionToken($token)

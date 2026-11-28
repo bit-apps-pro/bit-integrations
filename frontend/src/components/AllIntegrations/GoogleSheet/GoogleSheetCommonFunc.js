@@ -1,5 +1,6 @@
 import { __, sprintf } from '../../../Utils/i18nwrap'
 import bitsFetch from '../../../Utils/bitsFetch'
+import { pickFromGoogleDrive } from '../../../Utils/googlePicker'
 import { deepCopy } from '../../../Utils/Helpers'
 import {
   actionFields,
@@ -58,6 +59,40 @@ const spreadSheetChange = (sheetConf, formID, setSheetConf, setIsLoading, setSna
   }
 
   return newConf
+}
+
+export const browseSheetDrive = (sheetConf, parentId, location) =>
+  bitsFetch(
+    {
+      ...buildAuthRequestParams(sheetConf),
+      parentId,
+      location,
+      includeAccessible: Boolean(sheetConf?.one_click_app)
+    },
+    'gsheet_browse_drive'
+  )
+
+export const findSpreadsheetInDrive = (sheetConf, onOpen, folder) =>
+  pickFromGoogleDrive({
+    connectionId: sheetConf.connection_id,
+    kind: 'spreadsheet',
+    title: __('Choose a spreadsheet', 'bit-integrations'),
+    folder,
+    onOpen
+  })
+
+export const selectSpreadsheet = (file, formID, sheetConf, setSheetConf, setIsLoading, setSnackbar) => {
+  if (file.id === sheetConf.spreadsheetId) return
+
+  const pickedConf = deepCopy(sheetConf)
+  pickedConf.default = pickedConf.default || {}
+  pickedConf.default.spreadsheets = {
+    ...(pickedConf.default.spreadsheets || {}),
+    [file.name]: { spreadsheetId: file.id, spreadsheetName: file.name }
+  }
+  pickedConf.spreadsheetId = file.id
+
+  setSheetConf(spreadSheetChange(pickedConf, formID, setSheetConf, setIsLoading, setSnackbar))
 }
 
 const worksheetChange = (sheetConf, formID, setSheetConf, setIsLoading, setSnackbar) => {

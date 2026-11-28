@@ -2,6 +2,7 @@
 import toast from 'react-hot-toast'
 import { __ } from '../../../Utils/i18nwrap'
 import bitsFetch from '../../../Utils/bitsFetch'
+import { pickFromGoogleDrive } from '../../../Utils/googlePicker'
 
 export const handleInput = (e, googleDriveConf, setGoogleDriveConf) => {
   const newConf = { ...googleDriveConf }
@@ -48,3 +49,26 @@ export const getAllGoogleDriveFolders = (flowID, googleDriveConf, setGoogleDrive
     loading: __('Loading GoogleDrive Folders List...', 'bit-integrations')
   })
 }
+
+export const browseDriveFolders = (googleDriveConf, parentId, location) =>
+  bitsFetch(
+    {
+      ...buildAuthRequestParams(googleDriveConf),
+      parentId,
+      location,
+      includeAccessible: Boolean(googleDriveConf?.one_click_app)
+    },
+    'googleDrive_browse_folders'
+  )
+
+export const createDriveFolder = (googleDriveConf, parentId, name) =>
+  bitsFetch({ ...buildAuthRequestParams(googleDriveConf), parentId, name }, 'googleDrive_create_folder')
+
+export const findFolderInDrive = (googleDriveConf, onOpen, folder) =>
+  pickFromGoogleDrive({
+    connectionId: googleDriveConf.connection_id,
+    kind: 'folder',
+    title: __('Choose a folder', 'bit-integrations'),
+    folder,
+    onOpen
+  })

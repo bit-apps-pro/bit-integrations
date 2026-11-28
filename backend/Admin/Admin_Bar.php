@@ -84,7 +84,10 @@ class Admin_Bar
             wp_enqueue_script('MODULE' . Config::SLUG . '-vite-client', $devUrl . '/@vite/client', [], Config::VERSION, true);
             wp_enqueue_script('MODULE' . Config::SLUG . '-index', $devUrl . '/main.jsx', [], Config::VERSION, true);
         } else {
-            wp_enqueue_script('MODULE' . Config::SLUG . '-index', Config::get('ASSET_URI') . '/main.' . Config::VERSION . '.js', $deps, Config::VERSION, true);
+            $mainScriptPath = Config::get('BASEDIR') . 'assets/main.' . Config::VERSION . '.js';
+            $mainScriptVersion = file_exists($mainScriptPath) ? Config::VERSION . '.' . filemtime($mainScriptPath) : Config::VERSION;
+
+            wp_enqueue_script('MODULE' . Config::SLUG . '-index', Config::get('ASSET_URI') . '/main.' . Config::VERSION . '.js', $deps, $mainScriptVersion, true);
 
             $manifestPath = Config::get('BASEDIR') . 'assets/.vite/manifest.json';
             if (file_exists($manifestPath)) {

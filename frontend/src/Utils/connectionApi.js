@@ -21,6 +21,14 @@ export const authorizeConnection = payload => bitsFetch(payload, 'connections/au
 
 export const oauthConnectionExchange = payload => bitsFetch(payload, 'connections/oauth2/exchange')
 
+export const getOneClickConfig = app =>
+  bitsFetch(null, 'connections/oauth2/one-click/config', { app }, 'GET')
+
+export const oneClickExchange = payload => bitsFetch(payload, 'connections/oauth2/one-click/exchange')
+
+export const getGooglePicker = connectionId =>
+  bitsFetch({ connection_id: connectionId }, 'connections/google/picker')
+
 export const verifyPluginActivation = payload =>
   bitsFetch(payload, 'connections/verify-plugin-activation')
 

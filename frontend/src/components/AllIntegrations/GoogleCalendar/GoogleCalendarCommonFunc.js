@@ -2,6 +2,8 @@
 import toast from 'react-hot-toast'
 import { __ } from '../../../Utils/i18nwrap'
 import bitsFetch from '../../../Utils/bitsFetch'
+import { APP_CONFIG } from '../../../config/app'
+import timeZoneList from './timeZoneList.json'
 
 export const handleInput = (e, googleCalendarConf, setGoogleCalendarConf) => {
   const newConf = { ...googleCalendarConf }
@@ -13,6 +15,11 @@ export const handleInput = (e, googleCalendarConf, setGoogleCalendarConf) => {
   }
   setGoogleCalendarConf({ ...newConf })
 }
+
+export const defaultTimeZone = () =>
+  [APP_CONFIG?.timeZone, Intl.DateTimeFormat().resolvedOptions().timeZone].find(timeZone =>
+    timeZoneList.some(({ value }) => value === timeZone)
+  )
 
 export const checkMappedFields = fieldsMapped => {
   const checkedField = fieldsMapped

@@ -31,7 +31,7 @@ class RecordApiHelper
             return new \WP_Error(423, __("Can't open file!", 'bit-integrations'));
         }
 
-        $apiEndpoint = 'https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart';
+        $apiEndpoint = 'https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart&supportsAllDrives=true';
         $boundary = $this->getBoundary();
         $headers = [
             'Authorization' => 'Bearer ' . $this->token,
