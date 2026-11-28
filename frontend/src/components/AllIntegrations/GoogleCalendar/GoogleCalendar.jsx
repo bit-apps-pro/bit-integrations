@@ -8,7 +8,7 @@ import Steps from '../../Utilities/Steps'
 import { saveActionConf } from '../IntegrationHelpers/IntegrationHelpers'
 import IntegrationStepThree from '../IntegrationHelpers/IntegrationStepThree'
 import GoogleCalendarAuthorization from './GoogleCalendarAuthorization'
-import { checkMappedFields } from './GoogleCalendarCommonFunc'
+import { checkMappedFields, defaultTimeZone } from './GoogleCalendarCommonFunc'
 import GoogleCalendarIntegLayout from './GoogleCalendarIntegLayout'
 
 function GoogleCalendar({ formFields, setFlow, flow, allIntegURL }) {
@@ -33,6 +33,7 @@ function GoogleCalendar({ formFields, setFlow, flow, allIntegURL }) {
     clientSecret: '',
     field_map: [{ formField: '', googleCalendarFormField: '' }],
     reminder_field_map: [{ method: 'popup', minutes: '30' }],
+    timeZone: defaultTimeZone(),
     descRichText: '',
     default: defaultCalendarFields,
     calendarLists: [],
