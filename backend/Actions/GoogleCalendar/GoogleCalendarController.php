@@ -80,11 +80,11 @@ class GoogleCalendarController
     public function execute($integrationData, $fieldValues)
     {
         $integrationDetails = $integrationData->flow_details;
-        $actions = $integrationDetails->actions;
-        $timeZone = $integrationDetails->timeZone;
-        $fieldMap = $integrationDetails->field_map;
-        $calendarId = $integrationDetails->calendarId;
-        $reminderFieldMap = $integrationDetails->reminder_field_map;
+        $actions = $integrationDetails->actions ?? (object) [];
+        $timeZone = $integrationDetails->timeZone ?? '';
+        $fieldMap = $integrationDetails->field_map ?? [];
+        $calendarId = $integrationDetails->calendarId ?? '';
+        $reminderFieldMap = (array) ($integrationDetails->reminder_field_map ?? []);
         $descRichText = $integrationDetails->descRichText ?? '';
         $isConnectionAuth = !empty($integrationDetails->connection_id);
         $tokenDetails = self::normalizeConnectionToken($integrationDetails->tokenDetails ?? null);

@@ -10,6 +10,7 @@ use BitApps\Integrations\Core\Util\HttpHelper;
 use BitApps\Integrations\Log\LogHandler;
 use DateTime;
 use DateTimeZone;
+use Exception;
 
 class RecordApiHelper
 {
@@ -22,8 +23,21 @@ class RecordApiHelper
     public function __construct($token, $calendarId, $timeZone)
     {
         $this->token = $token;
-        $this->timeZone = $timeZone;
+        $this->timeZone = self::resolveTimeZone($timeZone);
         $this->calendarId = $calendarId;
+    }
+
+    private static function resolveTimeZone($timeZone): string
+    {
+        $identifiers = timezone_identifiers_list();
+
+        foreach ([$timeZone, wp_timezone_string()] as $candidate) {
+            if (\is_string($candidate) && \in_array($candidate, $identifiers, true)) {
+                return $candidate;
+            }
+        }
+
+        return 'UTC';
     }
 
     public function insertEvent($data)
@@ -122,7 +136,19 @@ class RecordApiHelper
 
         $reminderFieldMap = [...array_filter($reminderFieldMap, fn ($value) => !empty($value->method) && !empty($value->minutes))];
 
-        $apiResponse = $this->handleInsert($fieldData, $reminderFieldMap, $actions);
+        try {
+            $apiResponse = $this->handleInsert($fieldData, $reminderFieldMap, $actions);
+        } catch (Exception $e) {
+            LogHandler::save($integrationId, wp_json_encode(['type' => 'record', 'type_name' => 'insert']), 'error', $e->getMessage());
+
+            return;
+        }
+
+        if (\is_string($apiResponse)) {
+            LogHandler::save($integrationId, wp_json_encode(['type' => 'record', 'type_name' => 'insert']), 'validation', $apiResponse);
+
+            return;
+        }
 
         if (!isset($apiResponse->id)) {
             if (isset($apiResponse->error)) {
