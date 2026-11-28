@@ -4085,9 +4085,50 @@ $menu-bleed: 40px;
   }
 }
 
-.picker-dialog-bg,
-.picker-dialog {
+// Google's Picker injects its backdrop and frame into our document with inline
+// page-coordinate positions, so !important is the only way to restyle them.
+.picker-dialog-bg {
+  position: fixed !important;
+  inset: 0 !important;
+  width: auto !important;
+  height: auto !important;
+  background: rgba(18, 21, 60, 0.53) !important;
+  opacity: 1 !important;
   z-index: 100000 !important;
+}
+
+iframe.picker-dialog-bg {
+  width: 100% !important;
+  height: 100% !important;
+  opacity: 0 !important;
+}
+
+.picker-dialog {
+  position: fixed !important;
+  top: 50% !important;
+  left: 50% !important;
+  translate: -50% -50%;
+  border: 0 !important;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow:
+    0 2px 6px rgba(18, 21, 60, 0.12),
+    0 24px 56px rgba(18, 21, 60, 0.28) !important;
+  z-index: 100001 !important;
+  animation: btcd-picker-in 180ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+@keyframes btcd-picker-in {
+  from {
+    opacity: 0;
+    scale: 0.97;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .picker-dialog {
+    animation: none;
+  }
 }
 
 .btcd-connection-type-hint {
