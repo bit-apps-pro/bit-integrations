@@ -25,7 +25,7 @@ import CopyText from '../Utilities/CopyText'
 import SecretInput from '../Utilities/SecretInput'
 import { APP_CONFIG } from '../../config/app'
 
-const ONE_CLICK_POPUP_CLOSED_GRACE_MS = 30000
+const ONE_CLICK_POPUP_CLOSED_GRACE_MS = 10 * 60 * 1000
 
 const ERROR_TEXT_STYLE = { color: 'red', fontSize: '15px' }
 

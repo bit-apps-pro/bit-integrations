@@ -150,14 +150,16 @@ export const openOauthPopup = (
     }
 
     let closedSince = 0
+    let focusedSince = 0
     const closeTimer = setInterval(() => {
       if (resolved || !popup.closed) return
 
-      closedSince ||= Date.now()
-      const graceMs = document.hasFocus()
-        ? Math.min(closedGraceMs, USER_CLOSED_CONFIRM_MS)
-        : closedGraceMs
-      if (Date.now() - closedSince < graceMs) return
+      const now = Date.now()
+      closedSince ||= now
+      focusedSince = document.hasFocus() ? focusedSince || now : 0
+      const userReturned =
+        focusedSince > 0 && now - focusedSince >= Math.min(closedGraceMs, USER_CLOSED_CONFIRM_MS)
+      if (now - closedSince < closedGraceMs && !userReturned) return
 
       resolved = true
       cleanup()
